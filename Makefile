@@ -8,7 +8,9 @@ ORANGE = 	\033[0;33m
 MAGENTA = 	\033[0;35m
 RESET = 	\033[0m
 
-SRCS		= srcs/main.c srcs/error.c
+SRCS		= srcs/main.c srcs/error.c \
+			srcs/cmd/cmd.c \
+			srcs/others/others.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -21,14 +23,14 @@ HEADERS		= -I headers/
 FLAGS		= -Wall -Wextra -Werror
 
 .c.o:		
-			@echo "${ORANGE}- $(BLUE)\c"
+			@echo "$(BLUE)- \c"
 			gcc ${FLAGS} ${HEADERS} -I ${LIBFT} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
 			@echo "$(ORANGE)Compiling libft : $(BLUE)"
 			@make -C $(LIBFT) all
 			@echo "$(ORANGE)Create executable file :"
-			@echo "${ORANGE}- $(BLUE)\c"
+			@echo "$(BLUE)- \c"
 			gcc ${FLAGS} ${OBJS} ${LIBFT}/libft.a -o ${NAME}
 			@echo "$(GREEN)|||<<< minishell ready >>>|||$(RESET)"
 

@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 15:52:19 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/02 14:18:27 by vileleu          ###   ########.fr       */
+/*   Updated: 2020/10/06 19:02:01 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ void			ft_putnbr_fd(int n, int fd);
 
 void			ft_bzero(void *s, size_t n);
 char			**ft_split(char const *s, char c);
+char			**ft_split_m(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
-char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin(char *s1, char const *s2);
+char			*ft_strjoin_sp(char *s1, char const *s2, char sp);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlen(const char *s);

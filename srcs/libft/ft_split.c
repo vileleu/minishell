@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/02 15:01:03 by vileleu          ###   ########.fr       */
+/*   Updated: 2020/10/05 17:20:04 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,12 @@ char				**ft_split(char const *s, char c)
 		return (NULL);
 	while (i < countwords(s, c))
 	{
-		ft_putchar_fd(i + 48, 1);
-		while (s && s[size] == c)
+		while (s[size] && s[size] == c)
 			size++;
 		if (!(news[i] = malloc(sizeof(char) * (sizeword(s + size, c) + 1))))
 			return (free_tab(news, i - 1));
 		j = 0;
-		while (s && s[size] != c)
+		while (s[size] && s[size] != c)
 			news[i][j++] = s[size++];
 		news[i][j] = '\0';
 		i++;
