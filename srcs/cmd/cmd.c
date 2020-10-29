@@ -6,93 +6,86 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 14:36:07 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/05 18:12:03 by vileleu          ###   ########.fr       */
+/*   Updated: 2020/10/24 16:23:16 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*cmd_cd(char **cmd)
+char	*cmd_cd(t_o *o)
 {
-	if (cmd[1] == NULL)
-		return (ft_strdup(""));
-	if (cmd[2] != NULL)
-		return (error_arg(cmd));
-	if ((chdir(cmd[1])) < 0)
-		return (error_errno(cmd));
-	return (ft_strdup(""));
-}
+	t_list	*tmp;
 
-char	*cmd_pwd(char **cmd, int *jmp)
-{
-	char	*path;
-
-	if (cmd[1] != NULL)
-		return (error_arg(cmd));
-	if (!(path = getcwd(NULL, 0)))
-		return (error_errno(cmd));
-	*jmp = 1;
-	return (path);
-}
-
-void	jump_echo(char **cmd, int *jmp, int *ii)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (cmd[i])
+	o->fd = 0;
+	if (o->cmd[1] == NULL)
 	{
-		j = 0;
-		while (cmd[i][j])
+		tmp = o->ev;
+		while (tmp)
 		{
-			if (cmd[i][j] == '\n')
-			{
-				if (*ii == 2)
-				{
-					*jmp = 1;
-					(*ii)--;
-				}
-			}
-			j++;
+			if (ft_strcmp_eg(tmp->content, "HOME") == 0)
+				break ;
+			tmp = tmp->next;
 		}
-		i++;
+		if ((chdir(tmp->content + 5)) < 0)
+			return (error_errno(o));
+		o->out = ft_strdup("");
+		return ("0");
 	}
+	if ((chdir(o->cmd[1])) < 0)
+		return (error_errno(o));
+	o->out = ft_strdup("");
+	return ("0");
 }
 
-char	*cmd_echo(char **cmd, int *jmp)
+char	*cmd_pwd(t_o *o)
+{
+	if (!(o->out = getcwd(NULL, 0)))
+		return (error_errno(o));
+	return ("?=0");
+}
+
+char	*cmd_echo(t_o *o)
 {
 	int		i;
-	char	*output;
 
 	i = 1;
-	*jmp = 1;
-	if (strncmp(cmd[i], "-n", 3) == 0 && i++)
-		*jmp = 0;
-	jump_echo(cmd, jmp, &i);
-	output = ft_strdup("");
-	while (cmd[i])
+	if (o->cmd[i] && strncmp(o->cmd[i], "-n", 3) == 0 && i++)
+		o->fd = 0;
+	o->out = ft_strdup("");
+	while (o->cmd[i])
 	{
-		if ((i == 1 && *jmp == 1) || (i == 2 && *jmp == 0))
+		if ((i == 1 && o->fd == 1) || (i == 2 && o->fd == 0))
 		{
-			if (!(output = ft_strjoin(output, cmd[i])))
+			if (!(o->out = ft_strjoin(o->out, o->cmd[i])))
 				return (NULL);
 		}
 		else
 		{
-			if (!(output = ft_strjoin_sp(output, cmd[i], ' ')))
+			if (!(o->out = ft_strjoin_sp(o->out, o->cmd[i], ' ')))
 				return (NULL);
 		}
 		i++;
 	}
-	return (output);
+	return ("?=0");
 }
 
-char	*unknown(char *s, char **cmd)
+char	*unknown(t_o *o)
 {
-	put_name(s, ": ", 2);
-	ft_putstr_fd("command not found: ", 2);
-	ft_putstr_fd(cmd[0], 2);
-	ft_putstr_fd("\n", 2);
-	return (ft_strdup(""));
+	ft_putstr_fd(o->name, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(o->cmd[0], 2);
+	ft_putstr_fd(": command not found", 2);
+	o->fd = 2;
+	o->out = ft_strdup("");
+	return ("?=127");
+}
+
+char	*cmd_exit(t_o *o)
+{
+	if (o->cmd[1] != NULL)
+		return (error_arg(o));
+	o->exit = 0;
+	o->fd = 0;
+	o->out = ft_strdup("");
+	return ("?=255");
 }

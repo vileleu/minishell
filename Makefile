@@ -1,4 +1,3 @@
-
 BLUE = 		\033[0;34m
 GREEN = 	\033[0;32m
 LIGHTBLUE = \033[1;34m
@@ -8,9 +7,11 @@ ORANGE = 	\033[0;33m
 MAGENTA = 	\033[0;35m
 RESET = 	\033[0m
 
-SRCS		= srcs/main.c srcs/error.c \
-			srcs/cmd/cmd.c \
-			srcs/others/others.c
+SRCS		= srcs/minimain.c srcs/error/error.c srcs/error/error2.c \
+			srcs/cmd/cmd.c srcs/cmd/cmd_ev.c srcs/cmd/utils_export.c srcs/cmd/cmd_unset.c \
+			srcs/parsing/parsing.c srcs/parsing/guillemets.c srcs/parsing/print_variable.c srcs/parsing/ft_split_m.c \
+			srcs/parsing/utils_ev.c \
+			srcs/others/others.c srcs/others/others2.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -20,7 +21,7 @@ LIBFT		= srcs/libft
 
 HEADERS		= -I headers/
 
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
 
 .c.o:		
 			@echo "$(BLUE)- \c"
@@ -41,7 +42,7 @@ clean:
 			@echo "$(RED)Erase files '.o'"
 			@make -C $(LIBFT) clean
 			@rm -rf $(OBJS)
-			@echo ""
+			@echo "\033[0m"
 
 fclean:
 			@echo ""

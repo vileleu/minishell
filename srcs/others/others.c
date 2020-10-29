@@ -5,19 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/06 19:02:40 by vileleu          ###   ########.fr       */
+/*   Created: 2020/10/13 16:17:10 by vileleu           #+#    #+#             */
+/*   Updated: 2020/10/27 15:16:07 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*cmd_exit(char **cmd)
-{
-	if (cmd[1] != NULL)
-		return (error_arg(cmd));
-	return (0);
-}
 
 void	put_name(char *s, char *sup, int fd)
 {
@@ -27,51 +20,62 @@ void	put_name(char *s, char *sup, int fd)
 	ft_putstr_fd("\033[0m", fd);
 }
 
-char	*quote_bis(char *line, char c, int *comp)
+int		verif_line(char *line)
 {
-	char	*newline;
 	int		i;
 
-	if (!(newline = ft_strdup(line)))
-		return (error_leave("malloc failed", line));
-	free(line);
-	put_name("> ", "", 2);
-	if ((get_next_line(0, &line)) < 0)
-		return (error_leave("malloc failed", line));
 	i = 0;
-	while (line[i])
-	{
-		if (line[i] == c)
-			(*comp)++;
+	while (line[i] == ' ' || line[i] == '\t' || line[i] == '\v' \
+	|| line[i] == '\f' || line[i] == '\r')
 		i++;
-	}
-	newline = ft_strjoin_sp(newline, line, '\n');
-	free(line);
-	return (newline);
+	if (line[i] == 0)
+		return (0);
+	else
+		return (1);
 }
 
-char	*quote(char *line)
+int		init_o(t_o *o, char *name, char **ev)
 {
+	t_list	*tmp;
 	int		i;
-	int		comp;
-	char	c;
 
 	i = 0;
-	comp = 0;
-	while (line[i])
+	o->cmd = NULL;
+	o->name = name;
+	o->out = NULL;
+	o->fd = 1;
+	o->ret = "?=0";
+	o->exit = 1;
+	o->i = 0;
+	o->len = 0;
+	if (!(o->ev = ft_lstnew(ft_strdup(ev[i++]))))
+		return (0);
+	tmp = o->ev;
+	while (ev[i])
 	{
-		if ((line[i] == '"' || line[i] == '\'') && comp == 0)
-		{
-			comp++;
-			c = line[i];
-		}
-		else if (line[i] == c)
-			comp++;
-		i++;
+		if (!(tmp->next = ft_lstnew(ft_strdup(ev[i++]))))
+			return (0);
+		tmp = tmp->next;
 	}
-	if (comp % 2 == 0)
-		return (line);
-	while (comp % 2 == 1)
-		line = quote_bis(line, c, &comp);
-	return (line);
+	return (1);
+}
+
+int		verif_cmd(char *cmd)
+{
+	int		i;
+
+	i = 0;
+	if (cmd[i++] == '$')
+	{
+		while ((cmd[i] >= 'a' && cmd[i] <= 'z') || (cmd[i] >= 'A' && \
+		cmd[i] <= 'Z') || (cmd[i] >= '0' && cmd[i] <= '9') || cmd[i] == '_')
+		{
+			if ((cmd[i] >= '0' && cmd[i] <= '9') && i == 0)
+				return (1);
+			i++;
+		}
+		if (cmd[i] == '\0')
+			return (0);
+	}
+	return (1);
 }

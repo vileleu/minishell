@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 15:52:19 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/06 19:02:01 by vileleu          ###   ########.fr       */
+/*   Updated: 2020/10/25 18:16:42 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-#include "get_next_line.h"
+# include "get_next_line.h"
 
 typedef struct	s_list
 {
@@ -78,19 +78,21 @@ void			ft_putnbr_fd(int n, int fd);
 
 void			ft_bzero(void *s, size_t n);
 char			**ft_split(char const *s, char c);
-char			**ft_split_m(char const *s, char c);
+char			**ft_split_s(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strjoin(char *s1, char const *s2);
 char			*ft_strjoin_sp(char *s1, char const *s2, char sp);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlen(const char *s);
+int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *haystack, const char *needle, \
 				size_t len);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			**free_tab(char **tab, int i);
 
 /*
 **FONCTIONS LISTES CHAÎNÉES

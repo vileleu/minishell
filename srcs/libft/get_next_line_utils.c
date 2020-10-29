@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 18:03:30 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/02 14:20:29 by vileleu          ###   ########.fr       */
+/*   Updated: 2020/10/23 17:17:26 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ char	**ft_strjoin_gnl(char **s1, char *s2, int i)
 	int		len2;
 
 	len1 = 0;
-	while (s1[0][len1])
+	while ((*s1)[len1])
 		len1++;
 	len2 = i;
-	if (!(temp = ft_strdup_gnl(s1[0])))
+	if (!(temp = ft_strdup_gnl(*s1)))
 		return (NULL);
-	free(s1[0]);
-	if (!(s1[0] = malloc(sizeof(char) * (len1 + len2 + 1))))
+	free(*s1);
+	if (!(*s1 = malloc(sizeof(char) * (len1 + len2 + 1))))
 		return (NULL);
 	i = -1;
 	while (++i < len1)
-		s1[0][i] = temp[i];
+		(*s1)[i] = temp[i];
 	free(temp);
 	i = -1;
 	while (++i < len2)
-		s1[0][len1 + i] = s2[i];
-	s1[0][len1 + len2] = '\0';
+		(*s1)[len1 + i] = s2[i];
+	(*s1)[len1 + len2] = '\0';
 	return (s1);
 }
 

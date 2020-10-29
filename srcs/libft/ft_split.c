@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/05 17:20:04 by vileleu          ###   ########.fr       */
+/*   Updated: 2020/10/25 17:55:48 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static unsigned int	sizeword(const char *str, char c)
 	return (i);
 }
 
-static char			**free_tab(char **tab, int i)
+char				**free_tab(char **tab, int i)
 {
 	while (i >= 0)
 	{

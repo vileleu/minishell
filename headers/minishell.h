@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/06 19:01:02 by vileleu          ###   ########.fr       */
+/*   Updated: 2020/10/29 17:23:33 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,91 @@
 # include <dirent.h>
 # include "libft.h"
 
-char		*error_leave(char *s, char *line);
-int			error_leave_int(char *s, char *line);
-char		*error_errno(char **cmd);
-char		*error_arg(char **cmd);
+typedef struct	s_o
+{
+	t_list		*ev;
+	char		**cmd;
+	char		*out;
+	char		*name;
+	char		*ret;
+	int			fd;
+	int			exit;
+	int			i;
+	int			len;
+}				t_o;
 
-char		*cmd_cd(char **cmd);
-char		*cmd_echo(char **cmd, int *jmp);
-char		*cmd_pwd(char **cmd, int *jmp);
-char		*cmd_exit(char **cmd);
-char		*unknown(char *s, char **cmd);
+/*
+** fonctions d'erreurs
+*/
 
-int			free_all(char **cmd, char *output, char *line);
-void		put_name(char *name, char *sup, int fd);
-char		*quote(char *line);
+char			*error_leave(char *s, t_o o, char *line);
+int				error_leave_int(char *s, char *line);
+char			*error_errno(t_o *o);
+char			*error_arg(t_o *o);
+char			*error_env(t_o *o, char *msg);
+char			*error_syntx(t_o *o, char *msg, char *ret);
+char			*error_spe(t_o *o, char *cmd);
+char			*big_free(char *s1, char *s2);
+
+/*
+** fonctions de commandes
+*/
+
+char			*cmd_cd(t_o *o);
+char			*cmd_echo(t_o *o);
+char			*cmd_pwd(t_o *o);
+char			*cmd_exit(t_o *o);
+char			*cmd_env(t_o *o);
+char			*cmd_export(t_o *o);
+char			*cmd_unset(t_o *o);
+char			*unknown(t_o *o);
+
+/*
+** traitement de(s) commande(s)
+*/
+
+int				work_in(t_o *o, char *line);
+
+/*
+** commande export
+*/
+
+int				is_egual(char *s);
+char			*print_ev(t_o *o);
+char			**sort(t_o *o, char **cmd, int j, t_list *temp);
+void			ft_swap(char **s1, char **s2);
+
+/*
+** fonctions parsing
+*/
+
+char			*ev_pars(char *line, t_o *o);
+int				parsing_work(char **line, t_o *o);
+char			*quote(char *line);
+int				verif_line(char *line);
+int				ev_strdup(char **line, int *i, t_o *o, int v);
+char			**ft_split_m(char **s, char c, t_o *o);
+int				size_ev(char *s, t_o *o);
+
+/*
+** fonctions ev
+*/
+
+int				ft_strlen_ev(char *s);
+int				loop_split_ev_bis(char **s, char *str, int *size, t_o *o);
+
+/*
+** fonctions diverses
+*/
+
+char			*modif_str(char *s);
+int				verif_cmd(char *cmd);
+int				init_o(t_o *o, char *name, char **ev);
+int				free_all(char **cmd, char *out, int ret);
+int				ft_strcmp_eg(char *s1, char *s2);
+int				ft_strcmp_ev(char *s1, char *s2);
+void			put_name(char *name, char *sup, int fd);
+
+int				where_path(char **path, char *s);
 
 #endif
