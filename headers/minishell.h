@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vico <vico@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2020/12/04 03:02:46 by vico             ###   ########lyon.fr   */
+/*   Updated: 2021/01/11 15:31:42 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/stat.h> 
 # include <fcntl.h>
 # include "signal.h"
-# include "libft.h"
+# include "../srcs/libft/libft.h"
 
 int				PARENT_PID;
 int				PROMPT;
