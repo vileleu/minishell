@@ -72,6 +72,7 @@ int		work_in(t_o *o, char **line, int n)
 char	*loop(char *s, char **ev)
 {
 	char	*line;
+	int		ret;
 	t_o		o;
 
 	if (!(init_o(&o, s, ev)))
@@ -79,12 +80,16 @@ char	*loop(char *s, char **ev)
 	line = NULL;
 	while (o.exit)
 	{
-		signal(SIGINT, sigint_signal);
-		signal(SIGQUIT, sigquit_signal);
 		PROMPT = 1;
 		put_name(o.name, ": ", 1);
-		if ((get_next_line(0, &line)) < 0)
+		if ((ret = get_next_line(0, &line)) < 0)
 			return (error_leave("malloc failed", o, line));
+		if (!ret && !ft_strcmp(line, ""))
+		{
+			free(line);
+			line = ft_strdup("exit");
+			ft_putstr_fd("exit\n", 1);
+		}
 		if (verif_line(line) != 0)
 		{
 			if (!(parsing_work(&line, &o)))
@@ -101,6 +106,8 @@ int		main(int ac, char **av, char **ev)
 		return (error_leave_int("too many arguments", NULL));
 	(void)av;
 	PARENT_PID = getpid();
+	signal(SIGINT, sigint_signal);
+	signal(SIGQUIT, sigquit_signal);
 	loop("minishell", ev);
 	return (0);
 }
