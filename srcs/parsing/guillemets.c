@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   guillemets.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/25 16:38:10 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:19:43 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 char	*get_newline(char *line)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:49:51 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/29 17:23:28 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:19:09 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 char	*error_env(t_o *o, char *msg)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 19:42:42 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/24 19:35:59 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:18:56 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 int		guill(char *str)
 {

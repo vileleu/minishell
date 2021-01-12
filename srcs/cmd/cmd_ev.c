@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_ev.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:16:19 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/25 15:32:47 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:19:02 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 char	*cmd_env(t_o *o)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimain.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 14:41:47 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/27 18:02:30 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:20:23 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../headers/minishell.h"
 
 /*
 ** renvoie la commande vers la bonne fonction

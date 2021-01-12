@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   others2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vico <vico@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2020/12/03 21:16:18 by vico             ###   ########lyon.fr   */
+/*   Updated: 2021/01/12 13:19:28 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 int		ft_strcmp_eg(char *s1, char *s2)
 {

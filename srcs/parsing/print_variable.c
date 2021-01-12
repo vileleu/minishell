@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 19:47:04 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/27 19:22:00 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:19:54 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 char	*create_fake(char *line, int *i, int j, int v)
 {

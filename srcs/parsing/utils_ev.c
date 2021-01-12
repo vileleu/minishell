@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ev.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 19:40:27 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/29 17:26:57 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:19:59 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 /*
 ** Deux fonctions pour calculer la taille des EV a ecrire

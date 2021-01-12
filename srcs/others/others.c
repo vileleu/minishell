@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:17:10 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/27 15:16:07 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:19:24 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 void	put_name(char *s, char *sup, int fd)
 {

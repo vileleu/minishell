@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vico <vico@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 16:22:13 by vileleu           #+#    #+#             */
-/*   Updated: 2020/12/04 03:52:03 by vico             ###   ########lyon.fr   */
+/*   Updated: 2021/01/12 13:19:01 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 int		where_path(char **path, char *s)
 {

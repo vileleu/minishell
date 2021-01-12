@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vico <vico@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 14:36:07 by vileleu           #+#    #+#             */
-/*   Updated: 2020/12/03 21:57:31 by vico             ###   ########lyon.fr   */
+/*   Updated: 2021/01/12 13:18:59 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 char	*cmd_pwd(t_o *o)
 {
