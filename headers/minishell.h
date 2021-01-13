@@ -6,7 +6,7 @@
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/11 15:31:42 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/01/13 16:25:14 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ int				PROMPT;
 
 typedef struct	s_o
 {
-	t_list		*ev;
-	char		**cmd;
-	char		*out;
-	char		*name;
-	char		*ret;
-	int			fd;
-	int			exit;
-	int			i;
-	int			len;
+	t_list		*ev; // liste des var env
+	char		**cmd; // tableau de string des cmd ex : "echo" "$home"
+	char		*out; // ce qu'on doit afficher ex = echo text, out = "text"
+	char		*name; //sert a rien, stock le prompt
+	char		*ret; // contient la valeur de la var d'env $?
+	int			fd; // savoir si c'est une erreur ou pas pour le \n
+	int			exit; // declarer a 1 a l'initialisation, while != 0 prog continue
+	int			i; // reussir a mettre a la norme
+	int			len; // reussir a mettre a la norme
 }				t_o;
 
 /*

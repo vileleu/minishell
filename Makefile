@@ -7,11 +7,9 @@ ORANGE = 	\033[0;33m
 MAGENTA = 	\033[0;35m
 RESET = 	\033[0m
 
-SRCS		= srcs/minimain.c srcs/error/error.c srcs/error/error2.c \
-			srcs/cmd/cmd.c srcs/cmd/cmd_ev.c srcs/cmd/utils_export.c srcs/cmd/cmd_unset.c srcs/cmd/cmd_path.c srcs/cmd/cmd_cd.c\
-			srcs/parsing/parsing.c srcs/parsing/guillemets.c srcs/parsing/print_variable.c srcs/parsing/ft_split_m.c srcs/parsing/utils_ev.c \
-			srcs/others/others.c srcs/others/others2.c \
-			srcs/signal/signal.c
+SRCS		= srcs/minimain.c \
+			  $(wildcard srcs/cmd/*.c) $(wildcard srcs/error/*.c) $(wildcard srcs/others/*.c) $(wildcard srcs/parsing/*.c) \
+			  $(wildcard srcs/pipe/*.c) $(wildcard srcs/signal/*.c)
 
 OBJS		= ${SRCS:.c=.o}
 
