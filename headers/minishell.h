@@ -6,7 +6,7 @@
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/13 16:25:14 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:57:16 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <string.h>
 # include <errno.h>
 # include <dirent.h>
-# include <sys/stat.h> 
+# include <sys/stat.h>
 # include <fcntl.h>
 # include "signal.h"
 # include "../srcs/libft/libft.h"
