@@ -103,16 +103,7 @@ int		quote_bis(char **line, int *ver, char *c)
 	return (comp);
 }
 
-<<<<<<< HEAD
 char	*quote(char **line, int *ver)
-=======
-/*
-// fonction quote, quote_bis & quote_bbis permettent de trouver s'il y a un '
-// et reste dans la boucle en attendant le 2e
-*/
-
-char	*quote(char *line)
->>>>>>> bae61ba670f684e59802cb06650d9cec43068de4
 {
 	int		comp;
 	char	c;
