@@ -12,39 +12,7 @@
 
 #include "../../headers/minishell.h"
 
-char	*error_env(t_o *o, char *msg)
-{
-	if (ft_strcmp(o->out, "") == 0)
-	{
-		ft_putstr_fd(o->name, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(o->cmd[0], 2);
-		ft_putstr_fd(": ", 2);
-	}
-	else if (o->cmd[1] != NULL)
-	{
-		ft_putstr_fd(o->cmd[0], 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(o->cmd[1], 2);
-		ft_putstr_fd(": ", 2);
-	}
-	ft_putstr_fd(msg, 2);
-	o->fd = 2;
-	return ("?=127");
-}
-
-char	*error_syntx(t_o *o, char *msg, char *ret)
-{
-	ft_putstr_fd(o->name, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd(" `", 2);
-	ft_putstr_fd(ret, 2);
-	ft_putstr_fd("'\n", 2);
-	return ("?=2");
-}
-
-int		free_all(char ***cmd, char **out, int ret)
+int		free_twice(char ***cmd, t_pipe *tuy, int ret)
 {
 	int		i;
 
@@ -55,28 +23,31 @@ int		free_all(char ***cmd, char **out, int ret)
 			free((*cmd)[i++]);
 		free(*cmd);
 	}
-	if (out != NULL)
-		free(*out);
+	if (tuy != NULL)
+		free_pipe(tuy);
 	return (ret);
 }
 
-int		big_free(char **s1, char **s2)
+char	*error_EOF(char **line, char c, char join)
 {
-	if (s1 != NULL)
-		free(*s1);
-	if (s2 != NULL)
-		free(*s2);
-	return (0);
+	if (!NL)
+		NL = -1;
+	else if (join == '\n')
+	{
+		ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
+		ft_putchar_fd(c, 2);
+		ft_putstr_fd("'\nminishell: syntax error: unexpected end of file\n", 2);
+	}
+	else if (join == ' ')
+	{
+		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
+	}
+	return (*line);
 }
 
-char	*error_mine(t_o *o, char *msg)
+char	*free_char(char **str)
 {
-	ft_putstr_fd(o->name, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(o->cmd[0], 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(msg, 2);
-	o->fd = 2;
-	o->out = ft_strdup("");
-	return ("?=1");
+	if (*str)
+		free(*str);
+	return (NULL);
 }

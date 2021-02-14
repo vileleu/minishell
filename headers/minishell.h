@@ -26,11 +26,21 @@
 # include <dirent.h>
 # include <sys/stat.h> 
 # include <fcntl.h>
-# include "signal.h"
+# include <signal.h>
 # include "../srcs/libft/libft.h"
 
-int				PARENT_PID;
+int				MAN_FORK;
 int				PROMPT;
+int				NL;
+int				RET_SIG;
+int				IN_FORK;
+int				EXIT_PID;
+
+typedef struct	s_pipe
+{
+	int				fd[2];
+	struct	s_pipe	*next;
+}				t_pipe;
 
 typedef struct	s_o
 {
@@ -43,6 +53,7 @@ typedef struct	s_o
 	int			exit; // declarer a 1 a l'initialisation, while != 0 prog continue
 	int			i; // reussir a mettre a la norme
 	int			len; // reussir a mettre a la norme
+	int			savout;
 }				t_o;
 
 /*
@@ -58,6 +69,9 @@ char			*error_syntx(t_o *o, char *msg, char *ret);
 char			*error_spe(t_o *o, char *cmd);
 char			*error_mine(t_o *o, char *msg);
 int				big_free(char **s1, char **s2);
+int				free_twice(char ***cmd, t_pipe *tuy, int ret);
+char			*error_EOF(char **line, char c, char join);
+char			*free_char(char **str);
 
 /*
 ** fonctions de commandes
@@ -77,7 +91,7 @@ char			*unknown(t_o *o);
 ** traitement de(s) commande(s)
 */
 
-int				work_in(t_o *o, char **line, int n);
+int				work_in(t_o *o, char **line);
 
 /*
 ** commande export
@@ -94,11 +108,12 @@ void			ft_swap(char **s1, char **s2);
 
 char			*ev_pars(char *line, t_o *o);
 int				parsing_work(char **line, t_o *o);
-char			*quote(char *line);
+char			*quote(char **line, int *ver);
 int				verif_line(char *line);
 int				ev_strdup(char **line, int *i, t_o *o, int v);
 char			**ft_split_m(char **s, char c, t_o *o);
 int				size_ev(char *s, t_o *o, int v);
+int				parsing_char(t_o *o, char *line);
 
 /*
 ** fonctions ev
@@ -120,6 +135,23 @@ char			**new_envp(t_o *o);
 
 void			sigquit_signal(int n);
 void			sigint_signal(int n);
+int				ret_signal(t_o *o);
+char			*get_child(int *end);
+
+/*
+** fonctions pipe
+*/
+
+int				begin_pipe(t_o *o, char **pip, t_pipe **tuy, int n);
+int				loop_pipe(t_o *o, char **pip, t_pipe **tuy, int i);
+int				behind_pipe(char *line, int j, int stop, int *ver);
+int				free_pipe(t_pipe *tuy);
+int				init_pipe(char **pip, t_pipe **tuy);
+
+/*
+** fonctions redirections
+*/
+
 
 /*
 ** fonctions diverses
@@ -133,5 +165,6 @@ int				ft_strcmp_eg(char *s1, char *s2);
 int				ft_strcmp_ev(char *s1, char *s2);
 void			put_name(char *name, char *sup, int fd);
 char			**free_tab(char **tab, int i);
+void			return_child(t_o *o);
 
 #endif

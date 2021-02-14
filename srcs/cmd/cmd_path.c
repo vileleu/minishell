@@ -42,13 +42,22 @@ int		execute(char **path, t_o *o)
 		return (0);
 	o->out = ft_strdup("");
 	o->fd = 0;
+	if (!ft_strcmp(o->cmd[0], "man") || !ft_strcmp(o->cmd[0] + 2, "minishell"))
+		MAN_FORK = 1;
 	pid = fork();
 	if (pid == -1)
 		return (free_all(&envp, NULL, 0));
-	else if (pid > 0)
-		wait(NULL);
-	else if (pid == 0 && execve(*path, o->cmd, envp) == -1)
-		return (free_all(&envp, NULL, 0));
+	else if (pid > 0 && !IN_FORK++)
+		waitpid(pid, &EXIT_PID, 0);
+	else if (pid == 0)
+	{
+		IN_FORK = 2;
+		if (execve(*path, o->cmd, envp) == -1)
+			return (free_all(&envp, NULL, 0));
+	}
+	IN_FORK = 0;
+	MAN_FORK = 0;
+	return_child(o);
 	return (free_all(&envp, NULL, 1));
 }
 

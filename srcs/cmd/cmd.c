@@ -69,5 +69,6 @@ char	*cmd_exit(t_o *o)
 		free(tmp->content);
 		free(tmp);
 	}
+	ft_putstr_fd("exit\n", 2);
 	return ("?=255");
 }

@@ -114,7 +114,9 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 	{
 		if (!(loop_split_ev(s, str, size, o)))
 			return (NULL);
-		if ((*s)[*size] != '\0' && (*s)[*size] != c)
+		if (((*s)[*size] != '\0' && (*s)[*size] != c) || ((*s)[*size] == '$' \
+		&& ((*s)[*size + 1] == ' ' || (*s)[*size + 1] == '\t' || \
+		(*s)[*size + 1] == '\v' || (*s)[*size + 1] == '\f' || (*s)[*size + 1] == '\r')))
 			str[(o->i)++] = (*s)[(*size)++];
 	}
 	str[o->i] = '\0';

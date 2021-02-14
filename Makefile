@@ -9,7 +9,7 @@ RESET = 	\033[0m
 
 SRCS		= srcs/minimain.c \
 			  $(wildcard srcs/cmd/*.c) $(wildcard srcs/error/*.c) $(wildcard srcs/others/*.c) $(wildcard srcs/parsing/*.c) \
-			  $(wildcard srcs/pipe/*.c) $(wildcard srcs/signal/*.c)
+			  $(wildcard srcs/pipe/*.c) $(wildcard srcs/signal/*.c) $(wildcard srcs/redirections/*.c)
 
 OBJS		= ${SRCS:.c=.o}
 

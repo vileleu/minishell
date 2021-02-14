@@ -33,12 +33,12 @@ char	*commandes(t_o *o)
 	else if (ft_strncmp(o->cmd[0], "exit", 5) == 0)
 		return (cmd_exit(o));
 	else if (cmd_path(o) == 2)
-		return ("?=0");
+		return (o->ret);
 	else
 		return (unknown(o));
 }
 
-int		work_in(t_o *o, char **line, int n)
+int		work_in(t_o *o, char **line)
 {
 	int		vide;
 
@@ -57,8 +57,6 @@ int		work_in(t_o *o, char **line, int n)
 	}
 	if (!(o->ret = commandes(o)))
 		return (free_all(&(o->cmd), &(o->out), 0));
-	if (n)
-		return (free_all(&(o->cmd), NULL, 1));
 	ft_putstr(o->out);
 	if (o->fd)
 		ft_putstr_fd("\n", o->fd);
@@ -81,14 +79,23 @@ char	*loop(char *s, char **ev)
 	while (o.exit)
 	{
 		PROMPT = 1;
+		EXIT_PID = 0;
 		put_name(o.name, ": ", 1);
 		if ((ret = get_next_line(0, &line)) < 0)
 			return (error_leave("malloc failed", o, line));
+		PROMPT = 0;
+		if (RET_SIG)
+		{
+			if (RET_SIG == 130)
+				o.ret = "?=130";
+			else if (RET_SIG == 131)
+				o.ret = "?=131";
+			RET_SIG = 0;
+		}
 		if (!ret && !ft_strcmp(line, ""))
 		{
 			free(line);
 			line = ft_strdup("exit");
-			ft_putstr_fd("exit\n", 1);
 		}
 		if (verif_line(line) != 0)
 		{
@@ -105,7 +112,11 @@ int		main(int ac, char **av, char **ev)
 	if (ac != 1)
 		return (error_leave_int("too many arguments", NULL));
 	(void)av;
-	PARENT_PID = getpid();
+	MAN_FORK = 0;;
+	NL = 0;
+	RET_SIG = 0;
+	IN_FORK = 0;
+	EXIT_PID = 0;
 	signal(SIGINT, sigint_signal);
 	signal(SIGQUIT, sigquit_signal);
 	loop("minishell", ev);

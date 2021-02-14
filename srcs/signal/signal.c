@@ -16,24 +16,47 @@ void	sigint_signal(int n)
 {
 	if (n == SIGINT)
 	{
-		if (PARENT_PID != getpid())
-			kill(getpid(), SIGKILL);
-		if (PARENT_PID == getpid())
-			write(1, "\n", 1);
-		if (PARENT_PID == getpid() && PROMPT)
-			put_name("minishell", ": ", 1);
+		if (IN_FORK == 2)
+			ft_putchar_fd('\n', 1);
+		if (IN_FORK == 2)
+			exit(EXIT_SUCCESS);
+		if (IN_FORK == 1 && !MAN_FORK)
+			ft_putchar_fd('\n', 1);
+		if (PROMPT)
+			put_name("\nminishell", ": ", 1);
 	}
+	NL = 0;
+	RET_SIG = 130;
 }
 
 void	sigquit_signal(int n)
 {
-	if (n == SIGQUIT)
+	if (n == SIGINT)
 	{
-		if (PARENT_PID != getpid())
-			kill(getpid(), SIGKILL);
-		if (PARENT_PID == getpid())
-			write(1, "\n", 1);
-		if (PARENT_PID == getpid() && PROMPT)
-			put_name("minishell", ":", 1);
+		if (IN_FORK == 2)
+			ft_putchar_fd('\n', 1);
+		if (IN_FORK == 2)
+			exit(EXIT_SUCCESS);
+		if (IN_FORK == 1 && !MAN_FORK)
+			ft_putchar_fd('\n', 1);
+		if (PROMPT)
+			put_name("\nminishell", ": ", 1);
 	}
+	NL = 0;
+	RET_SIG = 131;
+}
+
+int		ret_signal(t_o *o)
+{
+	if (NL == -1)
+	{
+		if (RET_SIG == 131)
+			o->ret = "?=131";
+		else if (RET_SIG == 130)
+			o->ret = "?=130";
+	}
+	else
+		o->ret = "?=2";
+	RET_SIG = 0;
+	return (1);
 }

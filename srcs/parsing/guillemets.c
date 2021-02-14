@@ -12,17 +12,26 @@
 
 #include "../../headers/minishell.h"
 
-char	*get_newline(char *line)
+char	*get_newline(char **line, int *ver, char c, char join)
 {
 	char	*newline;
+	int		end;
 
+	NL = 1;
 	put_name("> ", "", 1);
-	if ((get_next_line(0, &newline)) < 0)
+	if (!(newline = get_child(&end)))
 		return (NULL);
-	if (!(line = ft_strjoin_sp(line, newline, '\n')))
+	if (!end || !NL)
+	{
+		*ver = 2;
+		free(newline);
+		return (error_EOF(line, c, join));
+	}
+	NL = 0;
+	if (!(*line = ft_strjoin_sp(*line, newline, join)))
 		return (NULL);
 	free(newline);
-	return (line);
+	return (*line);
 }
 
 void	quote_bbis(char *line, int *i, char c, int *comp)
@@ -39,21 +48,54 @@ void	quote_bbis(char *line, int *i, char c, int *comp)
 	}
 }
 
-int		quote_bis(char *line)
+int		get_newpipe(char **line, int *ver, int i)
+{
+	int		j;
+	int		ok;
+
+	ok = 0;
+	while ((*line)[++i])
+	{
+		if ((*line)[i] != ' ')
+			ok = 1;
+	}
+	while (!ok && *ver != 2)
+	{
+		j = i;
+		if (!(*line = get_newline(line, ver, '|', ' ')))
+			return (0);
+		while (*ver != 2 && (*line)[j])
+		{
+			if ((*line)[j] == '|' && !behind_pipe(*line, j, i, ver))
+				return (1);
+			if ((*line)[j] != ' ')
+				return (1);
+			j++;
+		}
+	}
+	return (1);
+}
+
+int		quote_bis(char **line, int *ver, char *c)
 {
 	int		i;
 	int		comp;
-	char	c;
 
 	i = 0;
 	comp = 0;
-	while (line[i])
+	while (*ver != 2 && (*line)[i])
 	{
-		if (line[i] == '"' || line[i] == '\'')
+		if ((*line)[i] == '"' || (*line)[i] == '\'')
 		{
 			comp++;
-			c = line[i++];
-			quote_bbis(line, &i, c, &comp);
+			*c = (*line)[i++];
+			quote_bbis((*line), &i, *c, &comp);
+		}
+		else if ((*line)[i] == '|')
+		{
+			if (!(get_newpipe(line, ver, i)))
+				return (-1);
+			i++;
 		}
 		else
 			i++;
@@ -61,20 +103,24 @@ int		quote_bis(char *line)
 	return (comp);
 }
 
-char	*quote(char *line)
+char	*quote(char **line, int *ver)
 {
 	int		comp;
+	char	c;
 
 	comp = 1;
 	while (comp == 1)
 	{
 		comp = 0;
-		comp = quote_bis(line);
-		if (comp % 2 == 1)
+		if ((comp = quote_bis(line, ver, &c)) == -1)
+			return (NULL);
+		if (*ver != 2 && comp % 2 == 1)
 		{
-			if (!(line = get_newline(line)))
+			if (!(*line = get_newline(line, ver, c, '\n')))
 				return (NULL);
 		}
+		if (*ver == 2)
+			return (NULL);
 	}
-	return (line);
+	return (*line);
 }
