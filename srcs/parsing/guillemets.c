@@ -6,7 +6,7 @@
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:43 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:05:04 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,16 @@ int		quote_bis(char **line, int *ver, char *c)
 	return (comp);
 }
 
+<<<<<<< HEAD
 char	*quote(char **line, int *ver)
+=======
+/*
+// fonction quote, quote_bis & quote_bbis permettent de trouver s'il y a un '
+// et reste dans la boucle en attendant le 2e
+*/
+
+char	*quote(char *line)
+>>>>>>> bae61ba670f684e59802cb06650d9cec43068de4
 {
 	int		comp;
 	char	c;

@@ -1,3 +1,7 @@
 -> ajouter les redirections
 
+<<<<<<< HEAD
 -> prendre en compte toutes les erreurs et la valeur ded la var d'env $?
+=======
+-> prendre en compte toutes les erreurs et la valeur de la var d'env $?
+>>>>>>> bae61ba670f684e59802cb06650d9cec43068de4
