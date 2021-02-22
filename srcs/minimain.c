@@ -6,7 +6,7 @@
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 14:41:47 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/25 14:14:57 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:12:26 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		main(int ac, char **av, char **ev)
 	if (ac != 1)
 		return (error_leave_int("too many arguments", NULL));
 	(void)av;
-	MAN_FORK = 0;;
+	MAN_FORK = 0;
 	NL = 0;
 	RET_SIG = 0;
 	IN_FORK = 0;

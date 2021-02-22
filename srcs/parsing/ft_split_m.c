@@ -6,14 +6,14 @@
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:38 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:18:31 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
 /*
-** fonction qui split la commande en token en 
+** fonction qui split la commande en token en
 ** supprimant les ' , les " et en ecrivant les EV
 */
 
@@ -114,9 +114,10 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 	{
 		if (!(loop_split_ev(s, str, size, o)))
 			return (NULL);
-		if (((*s)[*size] != '\0' && (*s)[*size] != c) || ((*s)[*size] == '$' \
-		&& ((*s)[*size + 1] == ' ' || (*s)[*size + 1] == '\t' || \
-		(*s)[*size + 1] == '\v' || (*s)[*size + 1] == '\f' || (*s)[*size + 1] == '\r')))
+		if (((*s)[*size] != '\0' && (*s)[*size] != c) || ((*s)[*size] == '$'
+			&& ((*s)[*size + 1] == ' ' || (*s)[*size + 1] == '\t' ||
+			(*s)[*size + 1] == '\v' || (*s)[*size + 1] == '\f' ||
+			(*s)[*size + 1] == '\r')))
 			str[(o->i)++] = (*s)[(*size)++];
 	}
 	str[o->i] = '\0';
@@ -142,7 +143,8 @@ char	**ft_split_m(char **s, char c, t_o *o)
 	{
 		if (!(news[i] = loop_split(s, &size, c, o)))
 			return (free_tab(news, i - 1));
-		if (ft_strcmp(news[i], "") == 0 && ft_strcmp(*s, "") != 0 && ft_strcmp(*s, "\"\"") != 0)
+		if (ft_strcmp(news[i], "") == 0 &&
+			ft_strcmp(*s, "") != 0 && ft_strcmp(*s, "\"\"") != 0)
 		{
 			free(news[i--]);
 			size++;

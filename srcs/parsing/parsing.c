@@ -6,7 +6,7 @@
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 18:25:25 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:48 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:13:07 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		parsing_work(char **line, t_o *o)
 	else if (ver == 2)
 		return (ret_signal(o));
 	if (!(parsing_char(o, *line)))
-		return (1); 
+		return (1);
 	if (!(multi = ft_split_s(*line, ';')))
 		return (0);
 	while (o->exit && multi[i])

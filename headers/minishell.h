@@ -6,7 +6,7 @@
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/25 16:57:16 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:07:58 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				EXIT_PID;
 typedef struct	s_pipe
 {
 	int				fd[2];
-	struct	s_pipe	*next;
+	struct s_pipe	*next;
 }				t_pipe;
 
 typedef struct	s_o
@@ -70,7 +70,7 @@ char			*error_spe(t_o *o, char *cmd);
 char			*error_mine(t_o *o, char *msg);
 int				big_free(char **s1, char **s2);
 int				free_twice(char ***cmd, t_pipe *tuy, int ret);
-char			*error_EOF(char **line, char c, char join);
+char			*error_eof(char **line, char c, char join);
 char			*free_char(char **str);
 
 /*

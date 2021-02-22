@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:20:12 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:29:01 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int		get_child_p(char **newline, int fd[2], int *end)
 {
-	char buf[2];
+	char	buf[2];
 	int		rd;
 	int		ok;
 
 	ok = 0;
-	close (fd[1]);
+	close(fd[1]);
 	wait(NULL);
 	*newline = ft_strdup("");
 	while ((rd = read(fd[0], &buf, 1)) > 0)
@@ -39,7 +39,7 @@ int		get_child_p(char **newline, int fd[2], int *end)
 	return (1);
 }
 
-void	get_child_c(char* newline, int fd[2], int end)
+void	get_child_c(char *newline, int fd[2], int end)
 {
 	char buf[2];
 
