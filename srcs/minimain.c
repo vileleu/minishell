@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimain.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 14:41:47 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/25 14:14:57 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/21 15:19:38 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ int		work_in(t_o *o, char **line)
 	vide = 0;
 	if (!(verif_cmd(*line)))
 		vide = 1;
+	if (!(redirections(o, line)))
+		return (0);
+	if (!ft_strcmp(*line, ""))
+		return (1);
 	if (!(o->cmd = ft_split_m(line, ' ', o)))
 		return (0);
 	if (vide && o->cmd[1] == NULL && !ft_strcmp(o->cmd[0], ""))
@@ -80,7 +84,7 @@ char	*loop(char *s, char **ev)
 	{
 		PROMPT = 1;
 		EXIT_PID = 0;
-		put_name(o.name, ": ", 1);
+		put_name(o.name, ": ", 2);
 		if ((ret = get_next_line(0, &line)) < 0)
 			return (error_leave("malloc failed", o, line));
 		PROMPT = 0;
@@ -117,6 +121,8 @@ int		main(int ac, char **av, char **ev)
 	RET_SIG = 0;
 	IN_FORK = 0;
 	EXIT_PID = 0;
+	QUIT = 0;
+	PID = 0;
 	signal(SIGINT, sigint_signal);
 	signal(SIGQUIT, sigquit_signal);
 	loop("minishell", ev);

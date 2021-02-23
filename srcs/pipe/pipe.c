@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 18:25:25 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:20:07 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/20 14:11:02 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ int		loop_pipe(t_o *o, char **pip, t_pipe **tuy, int i)
 		dup2(((*tuy)->next->fd)[1], 1);
 	}
 	else if (i != 0 && !pip[(i) + 1])
-	{
 		dup2(o->savout, 1);
-		close(o->savout);
-	}
 	if (!(work_in(o, &(pip[i]))))
 		return (0);
 	if (i != 0 && pip[(i) + 1])
@@ -99,12 +96,9 @@ int		loop_pipe(t_o *o, char **pip, t_pipe **tuy, int i)
 int		begin_pipe(t_o *o, char **pip, t_pipe **tuy, int n)
 {
 	t_pipe	*save;
-	int		savin;
 	int		i;
 
 	i = 0;
-	savin = dup(0);
-	o->savout = dup(1);
 	save = *tuy;
 	pipe((*tuy)->fd);
 	dup2(((*tuy)->fd)[0], 0);
@@ -113,11 +107,11 @@ int		begin_pipe(t_o *o, char **pip, t_pipe **tuy, int n)
 	{
 		if (!(loop_pipe(o, pip, tuy, i)))
 			return (0);
+		close_all(o, 0);
 		i++;
 	}
 	close(((*tuy)->fd)[0]);
-	dup2(savin, 0);
-	close(savin);
+	dup2(o->savin, 0);
 	free_pipe(save);
 	return (1);
 }

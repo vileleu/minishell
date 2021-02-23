@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/25 16:57:16 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/21 17:26:50 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int				NL;
 int				RET_SIG;
 int				IN_FORK;
 int				EXIT_PID;
+int				QUIT;
+int				PID;
 
 typedef struct	s_pipe
 {
@@ -54,6 +56,9 @@ typedef struct	s_o
 	int			i; // reussir a mettre a la norme
 	int			len; // reussir a mettre a la norme
 	int			savout;
+	int			savin;
+	int			red_out;
+	int			red_in;
 }				t_o;
 
 /*
@@ -121,6 +126,7 @@ int				parsing_char(t_o *o, char *line);
 
 int				ft_strlen_ev(char *s);
 int				loop_split_ev_bis(char **s, char *str, int *size, t_o *o);
+void			delete_ev(t_o *o, char *str, int *i, int *nb);
 
 /*
 ** fonctions pour les non builtins
@@ -152,6 +158,10 @@ int				init_pipe(char **pip, t_pipe **tuy);
 ** fonctions redirections
 */
 
+int				redirections(t_o *o, char **line);
+int				where_redi(t_o *o, char **line, int beg, int end);
+int				is_empty(char c);
+void			close_all(t_o *o, int n);
 
 /*
 ** fonctions diverses

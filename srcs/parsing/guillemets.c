@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guillemets.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/26 15:05:04 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/21 15:20:10 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_newline(char **line, int *ver, char c, char join)
 	int		end;
 
 	NL = 1;
-	put_name("> ", "", 1);
+	put_name("> ", "", 2);
 	if (!(newline = get_child(&end)))
 		return (NULL);
 	if (!end || !NL)

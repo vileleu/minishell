@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 16:22:13 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:01 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/21 14:41:42 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ int		execute(char **path, t_o *o)
 		return (0);
 	o->out = ft_strdup("");
 	o->fd = 0;
-	if (!ft_strcmp(o->cmd[0], "man") || !ft_strcmp(o->cmd[0] + 2, "minishell"))
+	QUIT = 1;
+	if (!ft_strcmp(o->cmd[0], "man") || !ft_strcmp(o->cmd[0], "minishell"))
 		MAN_FORK = 1;
 	pid = fork();
+	PID = pid;
 	if (pid == -1)
 		return (free_all(&envp, NULL, 0));
 	else if (pid > 0 && !IN_FORK++)
@@ -55,8 +57,6 @@ int		execute(char **path, t_o *o)
 		if (execve(*path, o->cmd, envp) == -1)
 			return (free_all(&envp, NULL, 0));
 	}
-	IN_FORK = 0;
-	MAN_FORK = 0;
 	return_child(o);
 	return (free_all(&envp, NULL, 1));
 }
@@ -73,7 +73,6 @@ int		find_exe(char **path, char *cmd, t_o *o)
 	{
 		if (ft_strcmp(sd->d_name, cmd) == 0)
 		{
-			o->i = 0;
 			if (!(*path = ft_strjoin(*path, "/")))
 				return (closedir(dir));
 			if (!(*path = ft_strjoin(*path, cmd)))

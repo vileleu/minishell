@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 14:36:07 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:18:59 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/21 16:51:51 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ char	*cmd_echo(t_o *o)
 {
 	int		i;
 
+	i = -1;
+	while (o->cmd[++i])
+		printf("cmd[%d] = [%s]\n", i, o->cmd[i]);
 	i = 1;
-	if (o->cmd[i] && ft_strncmp(o->cmd[i], "-n", 3) == 0 && i++)
+	while (o->cmd[i] && ft_strncmp(o->cmd[i], "-n", 3) == 0 && i++)
 		o->fd = 0;
 	o->out = ft_strdup("");
 	while (o->cmd[i])
 	{
-		if ((i == 1 && o->fd == 1) || (i == 2 && o->fd == 0))
+		if (i == 1 || !ft_strncmp(o->cmd[i - 1], "-n", 3) || !ft_strcmp(o->cmd[i - 1], ""))
 		{
 			if (!(o->out = ft_strjoin(o->out, o->cmd[i])))
 				return (NULL);

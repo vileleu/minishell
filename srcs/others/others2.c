@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:28 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/18 16:33:24 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,26 @@ char	**new_envp(t_o *o)
 	}
 	envp[i] = NULL;
 	return (envp);
+}
+
+char	*modif_str(char *s)
+{
+	char	*new;
+	int		i;
+	int		j;
+
+	if (!(new = malloc(sizeof(char) * ft_strlen(s))))
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] != '+')
+			new[j++] = s[i++];
+		else
+			i++;
+	}
+	new[j] = '\0';
+	free(s);
+	return (new);
 }

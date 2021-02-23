@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:17:10 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:24 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/19 17:05:14 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,9 @@ int		verif_line(char *line)
 		return (1);
 }
 
-int		init_o(t_o *o, char *name, char **ev)
+void	init_o_bis(t_o *o)
 {
-	t_list	*tmp;
-	int		i;
-
-	i = 0;
 	o->cmd = NULL;
-	o->name = name;
 	o->out = NULL;
 	o->fd = 1;
 	o->ret = "?=0";
@@ -49,6 +44,19 @@ int		init_o(t_o *o, char *name, char **ev)
 	o->i = 0;
 	o->len = 0;
 	o->savout = 0;
+	o->savin = 0;
+	o->red_out = 0;
+	o->red_in = 0;
+}
+
+int		init_o(t_o *o, char *name, char **ev)
+{
+	t_list	*tmp;
+	int		i;
+
+	i = 0;
+	o->name = name;
+	init_o_bis(o);
 	if (!(ev[i]))
 		return (1);
 	if (!(o->ev = ft_lstnew(ft_strdup(ev[i++]))))
@@ -87,26 +95,4 @@ int		verif_cmd(char *cmd)
 			return (0);
 	}
 	return (1);
-}
-
-char	*modif_str(char *s)
-{
-	char	*new;
-	int		i;
-	int		j;
-
-	if (!(new = malloc(sizeof(char) * ft_strlen(s))))
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (s[i] != '+')
-			new[j++] = s[i++];
-		else
-			i++;
-	}
-	new[j] = '\0';
-	free(s);
-	return (new);
 }

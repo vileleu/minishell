@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_m.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:38 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/21 17:26:36 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
 /*
-** fonction qui split la commande en token en 
+** fonction qui split la commande en token en
 ** supprimant les ' , les " et en ecrivant les EV
 */
 
-int		countwords(const char *str, char c, int nb)
+int		countwords(t_o *o, char *str, char c, int nb)
 {
-	unsigned int	i;
-	char			m;
+	int		i;
+	char	m;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -30,13 +30,13 @@ int		countwords(const char *str, char c, int nb)
 			nb++;
 			while (str[i] != c && str[i] != '\0')
 			{
-				if (str[i] == '\"' || str[i] == '\'')
+				if (str[*i] == '\"' || str[*i] == '\'')
 				{
 					m = str[i++];
-					while (str[i] != m && str[i] != '\0')
-						i++;
+					while (str[*i] != m && str[*i])
+						(*i)++;
 				}
-				i++;
+				delete_ev(o, str, &i, &nb);
 			}
 		}
 		else
@@ -107,6 +107,7 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 
 	while ((*s)[*size] == c && (*s)[*size])
 		(*size)++;
+	if 
 	len = sizeword(*s, size, c, o);
 	if (!(str = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
@@ -114,9 +115,8 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 	{
 		if (!(loop_split_ev(s, str, size, o)))
 			return (NULL);
-		if (((*s)[*size] != '\0' && (*s)[*size] != c) || ((*s)[*size] == '$' \
-		&& ((*s)[*size + 1] == ' ' || (*s)[*size + 1] == '\t' || \
-		(*s)[*size + 1] == '\v' || (*s)[*size + 1] == '\f' || (*s)[*size + 1] == '\r')))
+		if (((*s)[*size] == '$' && !ft_isalnum((*s)[*size + 1])) \
+		|| ((*s)[*size] && (*s)[*size] != c && (*s)[*size] != '$'))
 			str[(o->i)++] = (*s)[(*size)++];
 	}
 	str[o->i] = '\0';
@@ -133,21 +133,14 @@ char	**ft_split_m(char **s, char c, t_o *o)
 
 	i = -1;
 	size = 0;
-	if (s == NULL)
+	if ((words = countwords(o, *s, c, 0)) == -1)
 		return (NULL);
-	words = countwords(*s, c, 0);
 	if (!(news = malloc(sizeof(char*) * (words + 1))))
 		return (NULL);
 	while (++i < words)
 	{
 		if (!(news[i] = loop_split(s, &size, c, o)))
 			return (free_tab(news, i - 1));
-		if (ft_strcmp(news[i], "") == 0 && ft_strcmp(*s, "") != 0 && ft_strcmp(*s, "\"\"") != 0)
-		{
-			free(news[i--]);
-			size++;
-			words--;
-		}
 	}
 	news[i] = NULL;
 	return (news);

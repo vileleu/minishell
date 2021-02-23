@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:20:12 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/21 14:42:08 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		get_child_p(char **newline, int fd[2], int *end)
 	int		ok;
 
 	ok = 0;
-	close (fd[1]);
+	close(fd[1]);
 	wait(NULL);
 	*newline = ft_strdup("");
 	while ((rd = read(fd[0], &buf, 1)) > 0)
@@ -89,12 +89,18 @@ char	*little_itoa(int n)
 		return ("?=1");
 	else if (n == 2)
 		return ("?=2");
+	else if (n == 3)
+		return ("?=3");
 	else
 		return ("?=0");
 }
 
 void	return_child(t_o *o)
 {
+	IN_FORK = 0;
+	MAN_FORK = 0;
+	QUIT = 0;
+	PID = 0;
 	if (WIFEXITED(EXIT_PID))
 	{
 		EXIT_PID = WEXITSTATUS(EXIT_PID);
