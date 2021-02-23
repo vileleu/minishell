@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 19:40:27 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/19 15:00:11 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 16:11:13 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ int		size_ev(char *s, t_o *o, int v)
 	}
 	len = in_out(s, o, i);
 	return (len - i);
+}
+
+void	pour_la_norme(t_o *o, int *tmp, int j)
+{
+	*tmp = o->i;
+	o->i = j;
 }
 
 /*

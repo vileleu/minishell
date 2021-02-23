@@ -6,11 +6,20 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 16:22:13 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/20 17:12:01 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 17:11:09 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+void	ignore(char *line, int *i)
+{
+	char	m;
+
+	m = line[(*i)++];
+	while (line[*i] != m)
+		(*i)++;
+}
 
 int		not_alone(t_o *o)
 {

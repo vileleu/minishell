@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 14:36:07 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 15:00:15 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 16:41:26 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*cmd_echo(t_o *o)
 	o->out = ft_strdup("");
 	while (o->cmd[i])
 	{
-		if (i == 1 || !ft_strncmp(o->cmd[i - 1], "-n", 3) || !ft_strcmp(o->cmd[i - 1], ""))
+		if (i == 1 || !ft_strncmp(o->cmd[i - 1], "-n", 3))
 		{
 			if (!(o->out = ft_strjoin(o->out, o->cmd[i])))
 				return (NULL);

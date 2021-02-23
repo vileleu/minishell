@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 14:38:10 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 17:19:37 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_o
 ** fonctions d'erreurs
 */
 
-char			*error_leave(char *s, t_o o, char *line);
+char			*error_leave(char *s, t_o *o, char *line);
 int				error_leave_int(char *s, char *line);
 char			*error_errno(t_o *o);
 char			*error_arg(t_o *o);
@@ -79,7 +79,7 @@ char			*error_eof(char **line, char c, char join);
 char			*free_char(char **str);
 
 /*
-** fonctions de commandes
+** fonctions builtins
 */
 
 char			*cmd_cd(t_o *o);
@@ -124,6 +124,7 @@ int				parsing_char(t_o *o, char *line);
 ** fonctions ev
 */
 
+void			pour_la_norme(t_o *o, int *tmp, int j);
 int				ft_strlen_ev(char *s);
 int				loop_split_ev_bis(char **s, char *str, int *size, t_o *o);
 void			delete_ev(t_o *o, char *str, int *i, int *nb);
@@ -163,6 +164,7 @@ int				redirections(t_o *o, char **line);
 int				where_redi(t_o *o, char **line, int beg, int end);
 int				is_empty(char c);
 void			close_all(t_o *o, int n);
+void			ignore(char *line, int *i);
 
 /*
 ** fonctions diverses

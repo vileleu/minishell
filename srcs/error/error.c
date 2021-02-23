@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:54:39 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:18:49 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/23 17:19:25 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-char	*error_leave(char *s, t_o o, char *line)
+char	*error_leave(char *s, t_o *o, char *line)
 {
 	t_list	*tmp;
 
 	if (line != NULL)
 		free(line);
-	while (o.ev)
+	while (o->ev)
 	{
-		tmp = o.ev;
-		o.ev = o.ev->next;
+		tmp = o->ev;
+		o->ev = o->ev->next;
 		free(tmp->content);
 		free(tmp);
 	}

@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 19:47:04 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 14:49:15 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 16:10:28 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ int		not_ev(char **l, int *i, int v, t_o *o)
 		&& (*l)[j + *i] != '_')
 			break ;
 	}
-	tmp = o->i;
-	o->i = j;
+	pour_la_norme(o, &tmp, j);
 	if (!(not_ev_bis(l, i, v, o)))
 		return (0);
 	o->i = tmp;
