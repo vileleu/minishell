@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 14:36:07 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/21 16:51:51 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:00:15 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ char	*cmd_echo(t_o *o)
 {
 	int		i;
 
-	i = -1;
-	while (o->cmd[++i])
-		printf("cmd[%d] = [%s]\n", i, o->cmd[i]);
 	i = 1;
 	while (o->cmd[i] && ft_strncmp(o->cmd[i], "-n", 3) == 0 && i++)
 		o->fd = 0;

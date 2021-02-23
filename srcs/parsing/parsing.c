@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 18:25:25 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/20 14:10:40 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 14:24:56 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		parsing_work(char **line, t_o *o)
 	else if (ver == 2)
 		return (ret_signal(o));
 	if (!(parsing_char(o, *line)))
-		return (1); 
+		return (1);
 	if (!(multi = ft_split_s(*line, ';')))
 		return (0);
 	while (o->exit && multi[i])

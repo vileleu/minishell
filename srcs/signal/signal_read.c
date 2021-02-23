@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/21 14:42:08 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 14:26:16 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		get_child_p(char **newline, int fd[2], int *end)
 {
-	char buf[2];
+	char	buf[2];
 	int		rd;
 	int		ok;
 
@@ -39,7 +39,7 @@ int		get_child_p(char **newline, int fd[2], int *end)
 	return (1);
 }
 
-void	get_child_c(char* newline, int fd[2], int end)
+void	get_child_c(char *newline, int fd[2], int end)
 {
 	char buf[2];
 

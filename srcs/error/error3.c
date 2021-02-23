@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error2.c                                           :+:      :+:    :+:   */
+/*   error3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:49:51 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:19:09 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:26:56 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ int		free_twice(char ***cmd, t_pipe *tuy, int ret)
 	return (ret);
 }
 
-char	*error_EOF(char **line, char c, char join)
+char	*error_eof(char **line, char c, char join)
 {
 	if (!NL)
 		NL = -1;
 	else if (join == '\n')
 	{
-		ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
+		ft_putstr_fd("minishell: unexpected EOF while looking for matching `",
+			2);
 		ft_putchar_fd(c, 2);
 		ft_putstr_fd("'\nminishell: syntax error: unexpected end of file\n", 2);
 	}

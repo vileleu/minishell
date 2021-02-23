@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/21 17:26:36 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:39:10 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int		countwords(t_o *o, char *str, char c, int nb)
 			nb++;
 			while (str[i] != c && str[i] != '\0')
 			{
-				if (str[*i] == '\"' || str[*i] == '\'')
+				if (str[i] == '\"' || str[i] == '\'')
 				{
 					m = str[i++];
-					while (str[*i] != m && str[*i])
-						(*i)++;
+					while (str[i] != m && str[i])
+						i++;
 				}
 				delete_ev(o, str, &i, &nb);
 			}
@@ -107,7 +107,7 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 
 	while ((*s)[*size] == c && (*s)[*size])
 		(*size)++;
-	if 
+	delete_after(o, *s, size);
 	len = sizeword(*s, size, c, o);
 	if (!(str = malloc(sizeof(char) * (len + 1))))
 		return (NULL);

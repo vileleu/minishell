@@ -1,3 +1,0 @@
--> ajouter les redirections
-
--> prendre en compte toutes les erreurs et la valeur ded la var d'env $?

@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 18:25:25 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/20 17:12:55 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 14:49:30 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		empty_synt(char *line, int i)
 
 	ok = 1;
 	i--;
-	while (i >= 0 && line[i] != ';' && line[i] != '|' && line[i] != '>' \
-	&& line[i] != '<')
+	while (i >= 0 && line[i] != ';' && line[i] != '|'
+		&& line[i] != '>' && line[i] != '<')
 	{
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\v' \
 		&& line[i] != '\f' && line[i] != '\r' && line[i] != '\n')
@@ -45,18 +45,19 @@ int		empty_synt(char *line, int i)
 
 int		syntax_bef(t_o *o, char *line, int i, int *r)
 {
-	if ((line[i] == '|' && line[i + 1] == '|') \
-	|| (line[i] == ';' && line[i + 1] == ';'))
+	if ((line[i] == '|' && line[i + 1] == '|') || (line[i] == ';'
+		&& line[i + 1] == ';'))
 	{
-		o->ret = error_syntx(o, "syntax error near unexpected token", \
-		ctoc(line[i], 2));
+		o->ret = error_syntx(o, "syntax error near unexpected token",
+			ctoc(line[i], 2));
 		*r = 0;
 		return (0);
 	}
-	if ((line[i] == '|' || line[i] == ';') && (i == 0 || empty_synt(line, i)))
+	if ((line[i] == '|' || line[i] == ';')
+		&& (i == 0 || empty_synt(line, i)))
 	{
-		o->ret = error_syntx(o, "syntax error near unexpected token", \
-		ctoc(line[i], 1));
+		o->ret = error_syntx(o, "syntax error near unexpected token",
+			ctoc(line[i], 1));
 		*r = 0;
 		return (0);
 	}
@@ -83,8 +84,8 @@ int		syntax_aft(t_o *o, char *line, int i, int *r)
 	else if (!(*r) && line[i] == '<')
 		o->ret = error_syntx(o, "syntax error near unexpected token", "<");
 	else if (!(*r))
-		o->ret = error_syntx(o, "syntax error near unexpected \
-		token", "newline");
+		o->ret = error_syntx(o, "syntax error near unexpected token",
+			"newline");
 	return (1);
 }
 

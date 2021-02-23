@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 14:41:47 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/21 15:19:38 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:37:40 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,14 @@ char	*commandes(t_o *o)
 
 int		work_in(t_o *o, char **line)
 {
-	int		vide;
-
 	o->fd = 1;
-	vide = 0;
-	if (!(verif_cmd(*line)))
-		vide = 1;
 	if (!(redirections(o, line)))
 		return (0);
 	if (!ft_strcmp(*line, ""))
 		return (1);
 	if (!(o->cmd = ft_split_m(line, ' ', o)))
 		return (0);
-	if (vide && o->cmd[1] == NULL && !ft_strcmp(o->cmd[0], ""))
+	if (o->cmd[0] == NULL)
 		return (free_all(&(o->cmd), NULL, 1));
 	if (o->cmd[0] == NULL)
 	{
@@ -116,7 +111,7 @@ int		main(int ac, char **av, char **ev)
 	if (ac != 1)
 		return (error_leave_int("too many arguments", NULL));
 	(void)av;
-	MAN_FORK = 0;;
+	MAN_FORK = 0;
 	NL = 0;
 	RET_SIG = 0;
 	IN_FORK = 0;

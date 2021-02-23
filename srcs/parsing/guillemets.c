@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/21 15:20:10 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 14:24:44 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_newline(char **line, int *ver, char c, char join)
 	{
 		*ver = 2;
 		free(newline);
-		return (error_EOF(line, c, join));
+		return (error_eof(line, c, join));
 	}
 	NL = 0;
 	if (!(*line = ft_strjoin_sp(*line, newline, join)))

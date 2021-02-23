@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/21 17:26:50 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/23 14:38:10 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				PID;
 typedef struct	s_pipe
 {
 	int				fd[2];
-	struct	s_pipe	*next;
+	struct s_pipe	*next;
 }				t_pipe;
 
 typedef struct	s_o
@@ -75,7 +75,7 @@ char			*error_spe(t_o *o, char *cmd);
 char			*error_mine(t_o *o, char *msg);
 int				big_free(char **s1, char **s2);
 int				free_twice(char ***cmd, t_pipe *tuy, int ret);
-char			*error_EOF(char **line, char c, char join);
+char			*error_eof(char **line, char c, char join);
 char			*free_char(char **str);
 
 /*
@@ -127,6 +127,7 @@ int				parsing_char(t_o *o, char *line);
 int				ft_strlen_ev(char *s);
 int				loop_split_ev_bis(char **s, char *str, int *size, t_o *o);
 void			delete_ev(t_o *o, char *str, int *i, int *nb);
+void			delete_after(t_o *o, char *str, int *size);
 
 /*
 ** fonctions pour les non builtins
