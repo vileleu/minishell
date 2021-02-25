@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:49:51 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/22 10:26:56 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:45:09 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ char	*error_eof(char **line, char c, char join)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
 	}
-	return (*line);
+	else
+	{
+		free(*line);
+		*line = ft_strdup("exit");
+	}
+	return ("");
 }
 
 char	*free_char(char **str)

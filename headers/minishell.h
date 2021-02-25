@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 17:19:37 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 17:07:25 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int				work_in(t_o *o, char **line);
 
 int				is_egual(char *s);
 char			*print_ev(t_o *o);
-char			**sort(t_o *o, char **cmd, int j, t_list *temp);
+char			**sort(t_o *o, int j, t_list *temp);
 void			ft_swap(char **s1, char **s2);
 
 /*
@@ -119,6 +119,13 @@ int				ev_strdup(char **line, int *i, t_o *o, int v);
 char			**ft_split_m(char **s, char c, t_o *o);
 int				size_ev(char *s, t_o *o, int v);
 int				parsing_char(t_o *o, char *line);
+int				quote_bis(char **line, int *ver, char *c);
+int				loop_quote(char **line, int *ver, char *c, int *i);
+int				verif_slash(char *line, int i);
+int				back_slash(char **line, int *ver, char *c, int *i);
+void			quote_bbis(char *line, int *i, char c, int *comp);
+int				is_quote(char *line ,int i, char m);
+int				enter_quote(char *line, int i);
 
 /*
 ** fonctions ev

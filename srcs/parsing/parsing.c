@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 18:25:25 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 14:24:56 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 16:49:25 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		parsing_work(char **line, t_o *o)
 		return (1);
 	if (!(quote(line, &ver)) && ver == 1)
 		return (0);
-	else if (ver == 2)
+	else if (ver == 2 && ft_strcmp(*line, "exit"))
 		return (ret_signal(o));
 	if (!(parsing_char(o, *line)))
 		return (1);

@@ -6,11 +6,27 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:58:11 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 17:23:48 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 15:54:02 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+int		enter_quote(char *line, int i)
+{
+	if ((line[i] == '\"' || line[i] == '\'') && ((i == 0) || (i != 0 && line[i - 1] != '\\')))
+		return (1);
+	return (0);
+}
+
+int		is_quote(char *line ,int i, char m)
+{
+	if (line[i] == m && m == '\'')
+		return (1);
+	else if (line[i] == m && ((i == 0) || (i != 0 && line[i - 1] != '\\')))
+		return (1);
+	return (0);
+}
 
 void	delete_ev(t_o *o, char *str, int *i, int *nb)
 {

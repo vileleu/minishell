@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 14:24:44 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 16:33:09 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,15 @@ char	*get_newline(char **line, int *ver, char c, char join)
 		return (error_eof(line, c, join));
 	}
 	NL = 0;
-	if (!(*line = ft_strjoin_sp(*line, newline, join)))
+	if (join != '\0' && !(*line = ft_strjoin_sp(*line, newline, join)))
 		return (NULL);
+	else if (join == '\0')
+	{
+		if (!(*line = ft_strdup(newline)))
+			return (NULL);
+	}
 	free(newline);
 	return (*line);
-}
-
-void	quote_bbis(char *line, int *i, char c, int *comp)
-{
-	while (line[*i])
-	{
-		if (line[*i] == c)
-		{
-			(*comp)++;
-			(*i)++;
-			break ;
-		}
-		(*i)++;
-	}
 }
 
 int		get_newpipe(char **line, int *ver, int i)
@@ -76,30 +67,56 @@ int		get_newpipe(char **line, int *ver, int i)
 	return (1);
 }
 
-int		quote_bis(char **line, int *ver, char *c)
+int		back_slash(char **line, int *ver, char *c, int *i)
 {
-	int		i;
-	int		comp;
+	char	*tmp;
+	int		j;
+	int		max;
 
-	i = 0;
-	comp = 0;
-	while (*ver != 2 && (*line)[i])
+	if (*i == 0 && !(get_newline(line, ver, *c, '\0')))
+		return (-1);
+	if (*i != 0)
 	{
-		if ((*line)[i] == '"' || (*line)[i] == '\'')
-		{
-			comp++;
-			*c = (*line)[i++];
-			quote_bbis((*line), &i, *c, &comp);
-		}
-		else if ((*line)[i] == '|')
-		{
-			if (!(get_newpipe(line, ver, i)))
-				return (-1);
-			i++;
-		}
-		else
-			i++;
+		j = -1;
+		if (!(tmp = ft_strdup(*line)))
+			return (-1);
+		max = ft_strlen(tmp) - 2;
+		free(*line);
+		if (!(*line = malloc(sizeof(char) * (max + 1))))
+			return (-1);
+		while (++j < max)
+			(*line)[j] = tmp[j];
+		(*line)[j] = '\0';
+		if (!(get_newline(line, ver, *c, tmp[j])))
+			return (-1);
 	}
+	return (1);
+}
+
+int		loop_quote(char **line, int *ver, char *c, int *i)
+{
+	int		comp;
+	
+	comp = 0;
+	if (enter_quote(*line, *i))
+	{
+		comp++;
+		*c = (*line)[(*i)++];
+		quote_bbis((*line), i, *c, &comp);
+	}
+	else if ((*line)[*i] == '|')
+	{
+		if (!(get_newpipe(line, ver, (*i)++)))
+			return (-1);
+	}
+	else if ((*line)[*i] == '\\' && \
+	(*line)[*i + 1] == '\0' && !verif_slash(*line, *i))
+	{
+		if ((back_slash(line, ver, c, i)) == -1)
+			return (-1);
+	}
+	else
+		(*i)++;
 	return (comp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:30:52 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 17:14:11 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 15:31:51 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		redirections(t_o *o, char **line)
 	i = -1;
 	while ((*line)[++i])
 	{
-		if ((*line)[i] == '\"' || (*line)[i] == '\'')
+		if (enter_quote(*line, i))
 			ignore(*line, &i);
 		if ((*line)[i] == '>' || (*line)[i] == '<')
 		{

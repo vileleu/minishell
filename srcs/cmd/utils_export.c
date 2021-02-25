@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 19:42:42 by vileleu           #+#    #+#             */
-/*   Updated: 2021/01/12 13:18:56 by thoberth         ###   ########.fr       */
+/*   Updated: 2021/02/25 17:06:55 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_swap(char **s1, char **s2)
 	*s2 = swap;
 }
 
-char	**sort(t_o *o, char **cmd, int j, t_list *temp)
+char	**sort(t_o *o, int j, t_list *temp)
 {
 	char	**tmp;
 
@@ -76,8 +76,8 @@ char	**sort(t_o *o, char **cmd, int j, t_list *temp)
 		o->fd = 0;
 	while (temp)
 	{
-		if (!(tmp[j++] = export_str(temp->content, cmd[0], \
-		ft_strlen(cmd[0]) + 1, 1)))
+		if (!(tmp[j++] = export_str(temp->content, "declare -x", \
+		ft_strlen("declare -x") + 1, 1)))
 			return (NULL);
 		temp = temp->next;
 	}
@@ -99,7 +99,7 @@ char	*print_ev(t_o *o)
 	char	**tmp;
 	int		i;
 
-	if (!(tmp = sort(o, o->cmd, 0, NULL)))
+	if (!(tmp = sort(o, 0, NULL)))
 		return (NULL);
 	o->out = ft_strdup("");
 	i = 0;

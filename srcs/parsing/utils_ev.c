@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 19:40:27 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 16:11:13 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 17:23:51 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		loop_split_ev_bis(char **s, char *str, int *size, t_o *o)
 	{
 		if (!(ev_strdup(s, size, o, 1)))
 			return (0);
+		printf("line = %s\n", *s + *size);
 		while ((o->len)-- > 0)
 			str[(o->i)++] = (*s)[(*size)++];
 	}

@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 18:03:21 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/23 17:36:39 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 16:52:35 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				free_fd(t_liste **begin, int fd);
 #endif
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 100
 #endif
 
 #ifndef OPEN_MAX

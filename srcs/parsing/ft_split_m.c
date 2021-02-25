@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 17:12:18 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 17:20:22 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,27 @@ int		sizeword(char *str, int *i, char c, t_o *o)
 	j = *i;
 	while (str[j] != c && str[j] != '\0')
 	{
-		if ((str[j] == '\"' || str[j] == '\'') && ver++)
+		if (enter_quote(str, j) && ver++)
 		{
 			m = str[j];
-			while (str[++j] != m)
+			while (!is_quote(str, ++j, m))
 			{
 				if (str[j] == '$' && m == '"')
 					res += size_ev(str + j, o, 1);
+				if (str[j] == '\\' && m == '\"' && str[j + 1] == '$')
+				{
+					j++;
+					res--;
+				}
 			}
 		}
 		if (str[j] == '$')
 			res += size_ev(str + j, o, 0);
+		if (str[j] == '\\')
+		{
+			j++;
+			res--;
+		}
 		j++;
 	}
 	res += j - *i;
@@ -80,17 +90,22 @@ int		loop_split_ev(char **s, char *str, int *size, t_o *o)
 
 	if (!(loop_split_ev_bis(s, str, size, o)))
 		return (0);
-	if ((*s)[*size] == '\"' || (*s)[*size] == '\'')
+	if (enter_quote(*s, *size))
 	{
 		m = (*s)[(*size)++];
-		while ((*s)[*size] != m && (*s)[*size] != '\0')
+		while (!is_quote(*s, *size, m))
 		{
-			if ((*s)[*size] == '$' && m == '"')
+			if ((*s)[*size] == '$' && m == '\"')
 			{
 				if (!(ev_strdup(s, size, o, 0)))
 					return (0);
 				while ((o->len)-- > 0)
 					str[(o->i)++] = (*s)[(*size)++];
+			}
+			else if ((*s)[*size] == '\\' && m == '\"' && ((*s)[*size + 1] == '$' || (*s)[*size + 1] == '\"'))
+			{
+				(*size)++;
+				str[(o->i)++] = (*s)[(*size)++];
 			}
 			else
 				str[(o->i)++] = (*s)[(*size)++];
@@ -115,8 +130,13 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 	{
 		if (!(loop_split_ev(s, str, size, o)))
 			return (NULL);
-		if (((*s)[*size] == '$' && !ft_isalnum((*s)[*size + 1])) \
-		|| ((*s)[*size] && (*s)[*size] != c && (*s)[*size] != '$'))
+		if ((*s)[*size] == '\\')
+		{
+			(*size)++;
+			str[(o->i)++] = (*s)[(*size)++];
+		}
+		if (((*s)[*size] && (*s)[*size] == '$' && !ft_isalnum((*s)[*size + 1])) || \
+		((*s)[*size] && (*s)[*size] != c && (*s)[*size] != '$' && (*s)[*size] != '\\' && (*s)[*size] != '\'' && (*s)[*size] != '\"'))
 			str[(o->i)++] = (*s)[(*size)++];
 	}
 	str[o->i] = '\0';
@@ -143,5 +163,8 @@ char	**ft_split_m(char **s, char c, t_o *o)
 			return (free_tab(news, i - 1));
 	}
 	news[i] = NULL;
+	i = -1;
+	while (news[++i])
+		printf("news[%d] = [%s]\n", i, news[i]);
 	return (news);
 }

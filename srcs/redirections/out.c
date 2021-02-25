@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 16:22:13 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 17:11:09 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/02/25 15:52:07 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ignore(char *line, int *i)
 	char	m;
 
 	m = line[(*i)++];
-	while (line[*i] != m)
+	while (!is_quote(line, *i, m))
 		(*i)++;
 }
 
