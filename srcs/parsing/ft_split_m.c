@@ -163,8 +163,5 @@ char	**ft_split_m(char **s, char c, t_o *o)
 			return (free_tab(news, i - 1));
 	}
 	news[i] = NULL;
-	i = -1;
-	while (news[++i])
-		printf("news[%d] = [%s]\n", i, news[i]);
 	return (news);
 }

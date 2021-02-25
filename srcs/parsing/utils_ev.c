@@ -82,7 +82,6 @@ int		loop_split_ev_bis(char **s, char *str, int *size, t_o *o)
 	{
 		if (!(ev_strdup(s, size, o, 1)))
 			return (0);
-		printf("line = %s\n", *s + *size);
 		while ((o->len)-- > 0)
 			str[(o->i)++] = (*s)[(*size)++];
 	}

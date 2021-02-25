@@ -126,7 +126,7 @@ char	*quote(char **line, int *ver)
 	char	c;
 
 	comp = 1;
-	while (comp == 1)
+	while (comp % 2 == 1)
 	{
 		comp = 0;
 		if ((comp = quote_bis(line, ver, &c)) == -1)

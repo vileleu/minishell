@@ -40,15 +40,13 @@ char	*error_eof(char **line, char c, char join)
 		ft_putstr_fd("'\nminishell: syntax error: unexpected end of file\n", 2);
 	}
 	else if (join == ' ')
-	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
-	}
 	else
 	{
 		free(*line);
 		*line = ft_strdup("exit");
 	}
-	return ("");
+	return (*line);
 }
 
 char	*free_char(char **str)
