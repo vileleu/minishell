@@ -79,6 +79,7 @@ void			ft_putnbr_fd(int n, int fd);
 void			ft_bzero(void *s, size_t n);
 char			**ft_split(char const *s, char c);
 char			**ft_split_s(char const *s, char c);
+int				enter_slash(const char *line, int i, char c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strjoin(char *s1, char const *s2);
 char			*ft_strjoin_sp(char *s1, char const *s2, char sp);

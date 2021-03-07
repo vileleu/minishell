@@ -77,6 +77,7 @@ int				big_free(char **s1, char **s2);
 int				free_twice(char ***cmd, t_pipe *tuy, int ret);
 char			*error_eof(char **line, char c, char join);
 char			*free_char(char **str);
+int				error_open(t_o *o, char ***new, char **name);
 
 /*
 ** fonctions builtins
@@ -172,6 +173,9 @@ int				where_redi(t_o *o, char **line, int beg, int end);
 int				is_empty(char c);
 void			close_all(t_o *o, int n);
 void			ignore(char *line, int *i);
+int				inc(char *line, int *beg);
+char			*create_file_bis(char *line, int *beg, int *end, int *doub);
+int				reset(t_o *o);
 
 /*
 ** fonctions diverses

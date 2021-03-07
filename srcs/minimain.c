@@ -40,9 +40,13 @@ char	*commandes(t_o *o)
 
 int		work_in(t_o *o, char **line)
 {
+	int		ret;
+
 	o->fd = 1;
-	if (!(redirections(o, line)))
+	if (!(ret = redirections(o, line)))
 		return (0);
+	else if (ret == -1)
+		return (1);
 	if (!ft_strcmp(*line, ""))
 		return (1);
 	if (!(o->cmd = ft_split_m(line, ' ', o)))

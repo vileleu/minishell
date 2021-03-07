@@ -20,8 +20,9 @@ int		change_line(char **line, char *tmp)
 	return (1);
 }
 
-int		read_cmd(char *line, int beg, int end)
+int		read_cmd(t_o *o, char *line, int beg, int end)
 {
+	char	**new;
 	char	*name;
 	int		i;
 	int		fd;
@@ -35,7 +36,11 @@ int		read_cmd(char *line, int beg, int end)
 	while (beg < end)
 		name[i++] = line[beg++];
 	name[i] = '\0';
-	fd = open(name, O_RDONLY);
+	if (!(new = ft_split_m(&name, ' ', o)))
+		return (free_all(NULL, &name, 0));
+	if ((fd = open(new[0], O_RDONLY)) == -1)
+		return (error_open(o, &new, &name));
+	free_all(&new, &name, 1);
 	return (fd);
 }
 
@@ -54,14 +59,14 @@ int		take_cmd(t_o *o, char **line, int beg, int end)
 	while ((*line)[end])
 		tmp[i++] = (*line)[end++];
 	tmp[i] = '\0';
-	i = beg + 1;
+	i = beg;
 	while ((*line)[++i])
 	{
-		if ((*line)[i] == '<')
+		if (enter_slash(*line, i, '<'))
 			return (change_line(line, tmp));
 	}
-	if (!(o->red_in = read_cmd(*line, beg, end_cpy)))
-		return (0);
+	if (!(o->red_in = read_cmd(o, *line, beg, end_cpy)) || o->red_in == -1)
+		return (free_all(NULL, &tmp, 0));
 	change_line(line, tmp);
 	dup2(o->red_in, 0);
 	return (1);
@@ -73,20 +78,20 @@ int		redi_bis(t_o *o, char **line, int i, int beg)
 	int		end;
 
 	end = 0;
-	if ((*line)[i] == '\"' || (*line)[i] == '\'')
+	if (enter_quote(*line, i))
 	{
 		m = (*line)[i++];
-		while ((*line)[i] != m)
+		while (!is_quote(*line, i, m))
 			i++;
-		end = i;
+		i++;
 	}
 	else
 	{
 		while ((*line)[i] && !is_empty((*line)[i]) \
-		&& (*line)[i] != '>' && (*line)[i] != '<')
+		&& !enter_slash(*line, i, '>') && !enter_slash(*line, i, '<'))
 			i++;
-		end = i;
 	}
+	end = i;
 	if ((*line)[beg] == '>' && !(where_redi(o, line, beg, end)))
 		return (0);
 	if ((*line)[beg] == '<' && !(take_cmd(o, line, beg, end)))
@@ -98,20 +103,23 @@ int		redirections(t_o *o, char **line)
 {
 	int		i;
 	int		beg;
+	int		ret;
 
 	i = -1;
 	while ((*line)[++i])
 	{
 		if (enter_quote(*line, i))
 			ignore(*line, &i);
-		if ((*line)[i] == '>' || (*line)[i] == '<')
+		if (enter_slash(*line, i, '>') || enter_slash(*line, i, '<'))
 		{
 			beg = i++;
 			if ((*line)[i] == '>')
 				i++;
 			while (is_empty((*line)[i]))
 				i++;
-			if (!(redi_bis(o, line, i, beg)))
+			if (!(ret = redi_bis(o, line, i, beg)) && (o->red_in == -1 || o->red_out == -1))
+				return (reset(o));
+			else if (!ret)
 				return (0);
 			i = -1;
 		}

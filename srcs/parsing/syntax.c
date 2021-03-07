@@ -69,7 +69,7 @@ int		syntax_aft(t_o *o, char *line, int i, int *r)
 	*r = 0;
 	if (line[i] == '>')
 		i++;
-	while (line[i] && line[i] != '>' && line[i] != '<')
+	while (line[i] && !enter_slash(line, i, '>') && !enter_slash(line, i, '<'))
 	{
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\v' \
 		&& line[i] != '\f' && line[i] != '\r' && line[i] != '\n' \
@@ -77,11 +77,11 @@ int		syntax_aft(t_o *o, char *line, int i, int *r)
 			*r = 1;
 		i++;
 	}
-	if (!(*r) && line[i] == '>' && line[i + 1] == '>')
+	if (!(*r) && enter_slash(line, i, '>') && enter_slash(line, i + 1, '>'))
 		o->ret = error_syntx(o, "syntax error near unexpected token", ">>");
-	else if (!(*r) && line[i] == '>')
+	else if (!(*r) && enter_slash(line, i, '>'))
 		o->ret = error_syntx(o, "syntax error near unexpected token", ">");
-	else if (!(*r) && line[i] == '<')
+	else if (!(*r) && enter_slash(line, i, '<'))
 		o->ret = error_syntx(o, "syntax error near unexpected token", "<");
 	else if (!(*r))
 		o->ret = error_syntx(o, "syntax error near unexpected token",
@@ -99,15 +99,15 @@ int		parsing_char(t_o *o, char *line)
 	r = 1;
 	while (line[i])
 	{
-		if (line[i] == '\'' || line[i] == '\"')
+		if (enter_quote(line, i))
 		{
 			m = line[(i)++];
 			while (line[i] && line[i] != m)
 				(i)++;
 		}
-		else if (line[i] == '>' || line[i] == '<')
+		else if (enter_slash(line, i, '>') || enter_slash(line, i, '<'))
 			syntax_aft(o, line, ++i, &r);
-		else if (line[i] == ';' || line[i] == '|')
+		else if (enter_slash(line, i, ';') || enter_slash(line, i, '|'))
 			syntax_bef(o, line, i++, &r);
 		else
 			i++;

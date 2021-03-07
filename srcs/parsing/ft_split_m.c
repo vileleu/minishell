@@ -55,7 +55,7 @@ int		sizeword(char *str, int *i, char c, t_o *o)
 	res = 0;
 	ver = 1;
 	j = *i;
-	while (str[j] != c && str[j] != '\0')
+	while (str[j] != c && str[j])
 	{
 		if (enter_quote(str, j) && ver++)
 		{
@@ -163,8 +163,5 @@ char	**ft_split_m(char **s, char c, t_o *o)
 			return (free_tab(news, i - 1));
 	}
 	news[i] = NULL;
-	i = -1;
-	while (news[++i])
-		printf("news[%d] = [%s]\n", i, news[i]);
 	return (news);
 }

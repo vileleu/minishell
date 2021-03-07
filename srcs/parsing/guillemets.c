@@ -32,6 +32,7 @@ char	*get_newline(char **line, int *ver, char c, char join)
 		return (NULL);
 	else if (join == '\0')
 	{
+		free(*line);
 		if (!(*line = ft_strdup(newline)))
 			return (NULL);
 	}
@@ -89,6 +90,7 @@ int		back_slash(char **line, int *ver, char *c, int *i)
 		(*line)[j] = '\0';
 		if (!(get_newline(line, ver, *c, tmp[j])))
 			return (-1);
+		free(tmp);
 	}
 	return (1);
 }
@@ -104,7 +106,7 @@ int		loop_quote(char **line, int *ver, char *c, int *i)
 		*c = (*line)[(*i)++];
 		quote_bbis((*line), i, *c, &comp);
 	}
-	else if ((*line)[*i] == '|')
+	else if (enter_slash(*line, *i, '|'))
 	{
 		if (!(get_newpipe(line, ver, (*i)++)))
 			return (-1);
@@ -126,7 +128,7 @@ char	*quote(char **line, int *ver)
 	char	c;
 
 	comp = 1;
-	while (comp == 1)
+	while (comp % 2 == 1)
 	{
 		comp = 0;
 		if ((comp = quote_bis(line, ver, &c)) == -1)

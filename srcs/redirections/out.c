@@ -36,32 +36,30 @@ int		is_empty(char c)
 	return (0);
 }
 
-int		create_file(char *line, int beg, int end)
+int		create_file(t_o *o, char *line, int beg, int end)
 {
+	char	**new;
 	char	*name;
-	int		i;
 	int		fd;
 	int		doub;
 
-	doub = 0;
-	beg++;
-	if (line[beg] == '>' && beg++)
-		doub = 1;
-	while (is_empty(line[beg]))
-		beg++;
-	if (!(name = malloc(sizeof(char) * (end - beg + 1))))
+	if (!(name = create_file_bis(line, &beg, &end, &doub)))
 		return (0);
-	i = 0;
-	while (beg < end)
-		name[i++] = line[beg++];
-	name[i] = '\0';
+	if (!(new = ft_split_m(&name, ' ', o)))
+		return (free_all(NULL, &name, 0));
 	if (doub)
-		fd = open(name, O_CREAT | O_WRONLY | O_APPEND, S_IRUSR \
-		| S_IWUSR | S_IRGRP | S_IROTH);
+	{
+		if ((fd = open(new[0], O_CREAT | O_WRONLY | O_APPEND, S_IRUSR \
+		| S_IWUSR | S_IRGRP | S_IROTH)) == -1)
+			return (error_open(o, &new, &name));
+	}
 	else
-		fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR \
-		| S_IWUSR | S_IRGRP | S_IROTH);
-	free(name);
+	{
+		if ((fd = open(new[0], O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR \
+		| S_IWUSR | S_IRGRP | S_IROTH)) == -1)
+			return (error_open(o, &new, &name));
+	}
+	free_all(&new, &name, 1);
 	return (fd);
 }
 
@@ -71,7 +69,7 @@ int		where_redi(t_o *o, char **line, int beg, int end)
 	int		i;
 
 	i = -1;
-	if (!(o->red_out = create_file(*line, beg, end)))
+	if (!(o->red_out = create_file(o, *line, beg, end)) || o->red_out == -1)
 		return (0);
 	if (!(tmp = malloc(sizeof(char) * (ft_strlen(*line) - (end - beg) + 1))))
 		return (0);
@@ -86,7 +84,7 @@ int		where_redi(t_o *o, char **line, int beg, int end)
 	i = -1;
 	while ((*line)[++i])
 	{
-		if ((*line)[i] == '>')
+		if (enter_slash(*line, i, '>'))
 			return (not_alone(o));
 	}
 	dup2(o->red_out, 1);

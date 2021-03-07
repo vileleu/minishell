@@ -14,16 +14,48 @@
 
 int		enter_quote(char *line, int i)
 {
-	if ((line[i] == '\"' || line[i] == '\'') && ((i == 0) || (i != 0 && line[i - 1] != '\\')))
+	int		j;
+	int		c;
+
+	if (!i)
+	{
+		if (line[i] == '\"' || line[i] == '\'')
+			return (1);
+		return (0);
+	}
+	j = i - 1;
+	c = 0;
+	while (j >= 0 && line[j] == '\\')
+	{
+		j--;
+		c++;
+	}
+	if ((line[i] == '\"' || line[i] == '\'') && c % 2 == 0)
 		return (1);
 	return (0);
 }
 
 int		is_quote(char *line ,int i, char m)
 {
+	int		j;
+	int		c;
+
+	if (!i)
+	{
+		if (line[i] == m)
+			return (1);
+		return (0);
+	}
+	j = i - 1;
+	c = 0;
+	while (j && line[j] == '\\')
+	{
+		j--;
+		c++;
+	}
 	if (line[i] == m && m == '\'')
 		return (1);
-	else if (line[i] == m && ((i == 0) || (i != 0 && line[i - 1] != '\\')))
+	else if (line[i] == m && c % 2 == 0)
 		return (1);
 	return (0);
 }

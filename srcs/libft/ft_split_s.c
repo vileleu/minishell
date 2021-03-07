@@ -12,6 +12,29 @@
 
 #include "libft.h"
 
+int		enter_slash(const char *line, int i, char c)
+{
+	int		j;
+	int		co;
+
+	if (!i)
+	{
+		if (line[i] == c)
+			return (1);
+		return (0);
+	}
+	j = i - 1;
+	co = 0;
+	while (j && line[j] == '\\')
+	{
+		j--;
+		c++;
+	}
+	if (line[i] == c && co % 2 == 0)
+		return (1);
+	return (0);
+}
+
 static unsigned int	countwords(const char *str, char c, int nb)
 {
 	unsigned int	i;
@@ -20,10 +43,10 @@ static unsigned int	countwords(const char *str, char c, int nb)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] != c)
+		if (!enter_slash(str, i, c))
 		{
 			nb++;
-			while (str[i] != c && str[i] != '\0')
+			while (!enter_slash(str, i, c) && str[i] != '\0')
 			{
 				if (str[i] == '\"' || str[i] == '\'')
 				{
@@ -47,7 +70,7 @@ static unsigned int	sizeword(const char *str, int *i, char c)
 	char	m;
 
 	prev = *i;
-	while (str[*i] != c && str[*i] != '\0')
+	while (!enter_slash(str, *i, c) && str[*i])
 	{
 		if (str[*i] == '\"' || str[*i] == '\'')
 		{
@@ -68,12 +91,12 @@ char				*loop_split_s(char const *s, int *size, char c)
 	char	m;
 	char	*str;
 
-	while (s[*size] == c && s[*size])
+	while (enter_slash(s, *size, c) && s[*size])
 		(*size)++;
 	if (!(str = malloc(sizeof(char) * (sizeword(s, size, c) + 1))))
 		return (NULL);
 	j = 0;
-	while (s[*size] && s[*size] != c)
+	while (s[*size] && !enter_slash(s, *size, c))
 	{
 		if (s[*size] == '\"' || s[*size] == '\'')
 		{
