@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 17:07:25 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/08 15:03:29 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,7 @@
 # include <signal.h>
 # include "../srcs/libft/libft.h"
 
-int				MAN_FORK;
-int				PROMPT;
-int				NL;
-int				RET_SIG;
-int				IN_FORK;
-int				EXIT_PID;
-int				QUIT;
-int				PID;
+int				in_fork;
 
 typedef struct	s_pipe
 {
@@ -189,6 +182,6 @@ int				ft_strcmp_eg(char *s1, char *s2);
 int				ft_strcmp_ev(char *s1, char *s2);
 void			put_name(char *name, char *sup, int fd);
 char			**free_tab(char **tab, int i);
-void			return_child(t_o *o);
+void			return_child(t_o *o, int exit_pid);
 
 #endif

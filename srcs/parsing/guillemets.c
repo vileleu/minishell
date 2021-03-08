@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 16:33:09 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/08 17:15:50 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@ char	*get_newline(char **line, int *ver, char c, char join)
 	char	*newline;
 	int		end;
 
-	NL = 1;
 	put_name("> ", "", 2);
 	if (!(newline = get_child(&end)))
 		return (NULL);
-	if (!end || !NL)
+	if (!end || in_fork - ((in_fork / 1000) * 1000) == 130 || in_fork - ((in_fork / 1000) * 1000) == 131)
 	{
 		*ver = 2;
 		free(newline);
 		return (error_eof(line, c, join));
 	}
-	NL = 0;
 	if (join != '\0' && !(*line = ft_strjoin_sp(*line, newline, join)))
 		return (NULL);
 	else if (join == '\0')

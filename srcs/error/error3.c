@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:49:51 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 16:45:09 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/08 17:16:11 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int		free_twice(char ***cmd, t_pipe *tuy, int ret)
 
 char	*error_eof(char **line, char c, char join)
 {
-	if (!NL)
-		NL = -1;
+	if (in_fork - ((in_fork / 1000) * 1000) == 130 || in_fork - ((in_fork / 1000) * 1000) == 131)
+		return (*line);
 	else if (join == '\n')
 	{
 		ft_putstr_fd("minishell: unexpected EOF while looking for matching `",

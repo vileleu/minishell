@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 14:41:47 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 17:20:56 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/08 17:05:59 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,14 @@ int		work_in(t_o *o, char **line)
 
 char	*second_loop(t_o *o, char *line, int ret)
 {
-	EXIT_PID = 0;
 	put_name(o->name, ": ", 2);
 	if ((ret = get_next_line(0, &line)) < 0)
 		return (error_leave("malloc failed", o, line));
-	PROMPT = 0;
-	if (RET_SIG)
+	if (in_fork)
 	{
-		if (RET_SIG == 130)
+		if (in_fork == 130)
 			o->ret = "?=130";
-		else if (RET_SIG == 131)
-			o->ret = "?=131";
-		RET_SIG = 0;
+		in_fork = 0;
 	}
 	if (!ret && !ft_strcmp(line, ""))
 	{
@@ -111,7 +107,6 @@ char	*loop(char *s, char **ev)
 	line = NULL;
 	while (o.exit)
 	{
-		PROMPT = 1;
 		if (!(second_loop(&o, line, ret)))
 			return (NULL);
 	}
@@ -123,13 +118,7 @@ int		main(int ac, char **av, char **ev)
 	if (ac != 1)
 		return (error_leave_int("too many arguments", NULL));
 	(void)av;
-	MAN_FORK = 0;
-	NL = 0;
-	RET_SIG = 0;
-	IN_FORK = 0;
-	EXIT_PID = 0;
-	QUIT = 0;
-	PID = 0;
+	in_fork = 0;
 	signal(SIGINT, sigint_signal);
 	signal(SIGQUIT, sigquit_signal);
 	loop("minishell", ev);

@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 16:22:13 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/21 14:41:42 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/08 16:57:02 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,28 @@ int		execute(char **path, t_o *o)
 {
 	char	**envp;
 	pid_t	pid;
+	int		exit_pid;
 
+	exit_pid = 0;
 	if (!(envp = new_envp(o)))
 		return (0);
 	o->out = ft_strdup("");
 	o->fd = 0;
-	QUIT = 1;
+	in_fork = 1000;
 	if (!ft_strcmp(o->cmd[0], "man") || !ft_strcmp(o->cmd[0], "minishell"))
-		MAN_FORK = 1;
+		in_fork = 3000;
 	pid = fork();
-	PID = pid;
 	if (pid == -1)
 		return (free_all(&envp, NULL, 0));
-	else if (pid > 0 && !IN_FORK++)
-		waitpid(pid, &EXIT_PID, 0);
+	else if (pid > 0)
+		waitpid(pid, &exit_pid, 0);
 	else if (pid == 0)
 	{
-		IN_FORK = 2;
+		in_fork = 2000;
 		if (execve(*path, o->cmd, envp) == -1)
 			return (free_all(&envp, NULL, 0));
 	}
-	return_child(o);
+	return_child(o, exit_pid);
 	return (free_all(&envp, NULL, 1));
 }
 

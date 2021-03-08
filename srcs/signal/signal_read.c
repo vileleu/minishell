@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 14:26:16 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/08 17:24:33 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,21 @@ char	*get_child(int *end)
 
 	newline = NULL;
 	pipe(fd);
-	MAN_FORK = 1;
+	in_fork = 1000;
 	pid = fork();
 	if (pid == -1)
 		return (NULL);
 	else if (pid == 0)
 	{
-		IN_FORK = 2;
+		in_fork = 2000;
 		get_child_c(newline, fd, *end);
 	}
 	else if (pid > 0)
 	{
-		IN_FORK = 1;
 		if (!(get_child_p(&newline, fd, end)))
 			return (NULL);
 	}
-	IN_FORK = 0;
-	MAN_FORK = 0;
+	in_fork = 0;
 	return (newline);
 }
 
@@ -95,20 +93,20 @@ char	*little_itoa(int n)
 		return ("?=0");
 }
 
-void	return_child(t_o *o)
+void	return_child(t_o *o, int exit_pid)
 {
-	IN_FORK = 0;
-	MAN_FORK = 0;
-	QUIT = 0;
-	PID = 0;
-	if (WIFEXITED(EXIT_PID))
+	if (WIFEXITED(exit_pid))
 	{
-		EXIT_PID = WEXITSTATUS(EXIT_PID);
-		o->ret = little_itoa(EXIT_PID);
+		exit_pid = WEXITSTATUS(exit_pid);
+		o->ret = little_itoa(exit_pid);
 	}
-	else if (WIFSIGNALED(EXIT_PID))
+	else if (WIFSIGNALED(exit_pid))
 	{
-		EXIT_PID = 130;
-		o->ret = "?=130";
+		printf("%d\n", exit_pid);
+		if (in_fork - ((in_fork / 1000) * 1000) == 131)
+			o->ret = "?=131";
+		else if (in_fork - ((in_fork / 1000) * 1000) == 130)
+			o->ret = "?=130";
 	}
+	in_fork = 0;
 }
