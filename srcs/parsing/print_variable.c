@@ -128,6 +128,11 @@ int		ev_strdup(char **line, int *i, t_o *o, int v)
 			return (0);
 		return (1);
 	}
+	else if (ft_isdigit((*line)[*i + 1]))
+	{
+		if (!(for_digit(o, line, i, v)))
+			return (0);
+	}
 	else
 	{
 		if (!(not_ev(line, i, v, o)))

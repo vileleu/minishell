@@ -130,6 +130,9 @@ int				ft_strlen_ev(char *s);
 int				loop_split_ev_bis(char **s, char *str, int *size, t_o *o);
 void			delete_ev(t_o *o, char *str, int *i, int *nb);
 void			delete_after(t_o *o, char *str, int *size);
+char			*create_fake(char *line, int *i, int j, int v);
+int				replace(char **line, int *i, char *s, t_o *o);
+int				for_digit(t_o *o, char **line, int *i, int v);
 
 /*
 ** fonctions pour les non builtins
