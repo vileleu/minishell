@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:58:11 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 15:54:02 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:56:48 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		is_quote(char *line ,int i, char m)
 	}
 	j = i - 1;
 	c = 0;
-	while (j && line[j] == '\\')
+	while (j >= 0 && line[j] == '\\')
 	{
 		j--;
 		c++;

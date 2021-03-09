@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2020/10/25 17:55:40 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:24:34 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		enter_slash(const char *line, int i, char c)
 	}
 	j = i - 1;
 	co = 0;
-	while (j && line[j] == '\\')
+	while (j >= 0 && line[j] == '\\')
 	{
 		j--;
 		c++;

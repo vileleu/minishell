@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/08 17:24:33 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:51:53 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ char	*get_child(int *end)
 
 	newline = NULL;
 	pipe(fd);
-	in_fork = 1000;
+	in_fork = 4000;
 	pid = fork();
 	if (pid == -1)
 		return (NULL);
 	else if (pid == 0)
 	{
-		in_fork = 2000;
+		in_fork = 5000;
 		get_child_c(newline, fd, *end);
 	}
 	else if (pid > 0)
@@ -77,7 +77,6 @@ char	*get_child(int *end)
 		if (!(get_child_p(&newline, fd, end)))
 			return (NULL);
 	}
-	in_fork = 0;
 	return (newline);
 }
 
@@ -102,9 +101,11 @@ void	return_child(t_o *o, int exit_pid)
 	}
 	else if (WIFSIGNALED(exit_pid))
 	{
-		printf("%d\n", exit_pid);
 		if (in_fork - ((in_fork / 1000) * 1000) == 131)
+		{
 			o->ret = "?=131";
+			printf("%d\n", exit_pid);
+		}
 		else if (in_fork - ((in_fork / 1000) * 1000) == 130)
 			o->ret = "?=130";
 	}

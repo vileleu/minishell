@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:30:52 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 15:31:51 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/09 17:17:28 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ int		redi_bis(t_o *o, char **line, int i, int beg)
 	{
 		while ((*line)[i] && !is_empty((*line)[i]) \
 		&& !enter_slash(*line, i, '>') && !enter_slash(*line, i, '<'))
+		{
+			if ((*line)[i] == '\\')
+				i++;
 			i++;
+		}
 	}
 	end = i;
 	if ((*line)[beg] == '>' && !(where_redi(o, line, beg, end)))

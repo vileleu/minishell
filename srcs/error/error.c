@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:54:39 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 17:19:25 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:17:25 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ char	*error_errno(t_o *o)
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(o->cmd[0], 2);
 	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(o->cmd[1], 2);
-	ft_putstr_fd(": ", 2);
+	if (o->cmd[1])
+	{
+		ft_putstr_fd(o->cmd[1], 2);
+		ft_putstr_fd(": ", 2);
+	}
 	ft_putstr_fd(strerror(errno), 2);
 	o->fd = 2;
 	o->out = ft_strdup("");

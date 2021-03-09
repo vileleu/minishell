@@ -6,7 +6,7 @@
 /*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 17:20:22 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/09 17:17:36 by vileleu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		loop_split_ev(char **s, char *str, int *size, t_o *o)
 				while ((o->len)-- > 0)
 					str[(o->i)++] = (*s)[(*size)++];
 			}
-			else if ((*s)[*size] == '\\' && m == '\"' && ((*s)[*size + 1] == '$' || (*s)[*size + 1] == '\"'))
+			else if ((*s)[*size] == '\\' && m == '\"' && ((*s)[*size + 1] == '$' || (*s)[*size + 1] == '\"' || (*s)[*size + 1] == '\\'))
 			{
 				(*size)++;
 				str[(o->i)++] = (*s)[(*size)++];
