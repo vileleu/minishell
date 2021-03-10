@@ -21,8 +21,11 @@ void	ignore(char *line, int *i)
 		(*i)++;
 }
 
-int		not_alone(t_o *o)
+int		not_alone(t_o *o, char **line, char *tmp)
 {
+	free(*line);
+	*line = ft_strdup(tmp);
+	free(tmp);
 	close(o->red_out);
 	o->red_out = 0;
 	return (1);
@@ -78,15 +81,11 @@ int		where_redi(t_o *o, char **line, int beg, int end)
 	while ((*line)[end])
 		tmp[i++] = (*line)[end++];
 	tmp[i] = '\0';
+	if (verif_others(*line, beg, '>'))
+		return (not_alone(o, line, tmp));
 	free(*line);
 	*line = ft_strdup(tmp);
 	free(tmp);
-	i = -1;
-	while ((*line)[++i])
-	{
-		if (enter_slash(*line, i, '>'))
-			return (not_alone(o));
-	}
 	dup2(o->red_out, 1);
 	return (1);
 }

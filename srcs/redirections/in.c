@@ -59,12 +59,8 @@ int		take_cmd(t_o *o, char **line, int beg, int end)
 	while ((*line)[end])
 		tmp[i++] = (*line)[end++];
 	tmp[i] = '\0';
-	i = beg;
-	while ((*line)[++i])
-	{
-		if (enter_slash(*line, i, '<'))
-			return (change_line(line, tmp));
-	}
+	if (verif_others(*line, beg, '<'))
+		return (change_line(line, tmp));
 	if (!(o->red_in = read_cmd(o, *line, beg, end_cpy)) || o->red_in == -1)
 		return (free_all(NULL, &tmp, 0));
 	change_line(line, tmp);

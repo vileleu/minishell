@@ -56,3 +56,21 @@ char	*free_char(char **str)
 		free(*str);
 	return (NULL);
 }
+
+char	*error_errnoo(t_o *o, char *tmp)
+{
+	ft_putstr_fd(o->name, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(o->cmd[0], 2);
+	ft_putstr_fd(": ", 2);
+	if (tmp)
+	{
+		ft_putstr_fd(tmp, 2);
+		ft_putstr_fd(": ", 2);
+		free(tmp);
+	}
+	ft_putstr_fd(strerror(errno), 2);
+	o->fd = 2;
+	o->out = ft_strdup("");
+	return ("?=1");
+}

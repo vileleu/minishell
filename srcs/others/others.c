@@ -56,7 +56,9 @@ int		init_o(t_o *o, char *name, char **ev)
 
 	i = 0;
 	o->name = name;
+	o->ev = NULL;
 	init_o_bis(o);
+	i = 0;
 	if (!(ev[i]))
 		return (1);
 	if (!(o->ev = ft_lstnew(ft_strdup(ev[i++]))))
