@@ -20,11 +20,6 @@ int		inc(char *line, int *beg)
 	(*beg)++;
 	if (line[*beg] == '>' && (*beg)++)
 		doub = 1;
-	else if (line[*beg] == '\\')
-	{
-		(*beg)++;
-		return (doub);
-	}
 	while (is_empty(line[*beg]))
 		(*beg)++;
 	return (doub);

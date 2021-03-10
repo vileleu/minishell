@@ -80,6 +80,8 @@ void	delete_ev(t_o *o, char *str, int *i, int *nb)
 		if (is_empty(str[*i]) || !str[*i])
 			(*nb)--;
 	}
+	else if (str[*i] == '\\')
+		*i = *i + 2;
 	else
 		(*i)++;
 }

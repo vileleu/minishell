@@ -50,27 +50,13 @@ int		sizeword(char *str, int *i, char c, t_o *o)
 	int		j;
 	int		res;
 	int		ver;
-	char	m;
 
 	res = 0;
 	ver = 1;
 	j = *i;
 	while (str[j] != c && str[j])
 	{
-		if (enter_quote(str, j) && ver++)
-		{
-			m = str[j];
-			while (!is_quote(str, ++j, m))
-			{
-				if (str[j] == '$' && m == '"')
-					res += size_ev(str + j, o, 1);
-				if (str[j] == '\\' && m == '\"' && str[j + 1] == '$')
-				{
-					j++;
-					res--;
-				}
-			}
-		}
+		res += sizeword_bis(o, str, &j, &ver);
 		if (str[j] == '$')
 			res += size_ev(str + j, o, 0);
 		if (str[j] == '\\')
@@ -86,32 +72,12 @@ int		sizeword(char *str, int *i, char c, t_o *o)
 
 int		loop_split_ev(char **s, char *str, int *size, t_o *o)
 {
-	char	m;
-
 	if (!(loop_split_ev_bis(s, str, size, o)))
 		return (0);
 	if (enter_quote(*s, *size))
 	{
-		m = (*s)[(*size)++];
-		while (!is_quote(*s, *size, m))
-		{
-			if ((*s)[*size] == '$' && m == '\"')
-			{
-				if (!(ev_strdup(s, size, o, 0)))
-					return (0);
-				while ((o->len)-- > 0)
-					str[(o->i)++] = (*s)[(*size)++];
-			}
-			else if ((*s)[*size] == '\\' && m == '\"' &&
-				((*s)[*size + 1] == '$' || (*s)[*size + 1] == '\"' ||
-				(*s)[*size + 1] == '\\'))
-			{
-				(*size)++;
-				str[(o->i)++] = (*s)[(*size)++];
-			}
-			else
-				str[(o->i)++] = (*s)[(*size)++];
-		}
+		if (!(loop_split_ev_norme(o, s, str, size)))
+			return (0);
 		(*size)++;
 	}
 	return (1);
@@ -132,11 +98,7 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 	{
 		if (!(loop_split_ev(s, str, size, o)))
 			return (NULL);
-		if ((*s)[*size] == '\\')
-		{
-			(*size)++;
-			str[(o->i)++] = (*s)[(*size)++];
-		}
+		little_norme(o, s, str, size);
 		if (((*s)[*size] && (*s)[*size] == '$' &&
 			!ft_isalnum((*s)[*size + 1])) || ((*s)[*size] && (*s)[*size] != c &&
 			(*s)[*size] != '$' && (*s)[*size] != '\\' &&

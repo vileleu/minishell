@@ -122,6 +122,9 @@ int				back_slash(char **line, int *ver, char *c, int *i);
 void			quote_bbis(char *line, int *i, char c, int *comp);
 int				is_quote(char *line, int i, char m);
 int				enter_quote(char *line, int i);
+int				sizeword_bis(t_o *o, char *str, int *j, int *ver);
+int				loop_split_ev_norme(t_o *o, char **s, char *str, int *size);
+void			little_norme(t_o *o, char **s, char *str, int *size);
 
 /*
 ** fonctions ev
