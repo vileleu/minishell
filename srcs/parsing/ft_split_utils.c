@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 16:58:11 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 15:56:48 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:01:11 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		enter_quote(char *line, int i)
 	return (0);
 }
 
-int		is_quote(char *line ,int i, char m)
+int		is_quote(char *line, int i, char m)
 {
 	int		j;
 	int		c;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 16:22:13 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/08 16:57:02 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:54:28 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int		execute(char **path, t_o *o)
 		return (0);
 	o->out = ft_strdup("");
 	o->fd = 0;
-	in_fork = 1000;
+	g_fork = 1000;
 	if (!ft_strcmp(o->cmd[0], "man") || !ft_strcmp(o->cmd[0], "minishell"))
-		in_fork = 3000;
+		g_fork = 3000;
 	pid = fork();
 	if (pid == -1)
 		return (free_all(&envp, NULL, 0));
@@ -54,7 +54,7 @@ int		execute(char **path, t_o *o)
 		waitpid(pid, &exit_pid, 0);
 	else if (pid == 0)
 	{
-		in_fork = 2000;
+		g_fork = 2000;
 		if (execve(*path, o->cmd, envp) == -1)
 			return (free_all(&envp, NULL, 0));
 	}

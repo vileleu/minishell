@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:33:30 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/08 15:03:29 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 17:37:10 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <signal.h>
 # include "../srcs/libft/libft.h"
 
-int				in_fork;
+int				g_fork;
 
 typedef struct	s_pipe
 {
@@ -39,15 +39,15 @@ typedef struct	s_pipe
 
 typedef struct	s_o
 {
-	t_list		*ev; // liste des var env
-	char		**cmd; // tableau de string des cmd ex : "echo" "$home"
-	char		*out; // ce qu'on doit afficher ex = echo text, out = "text"
-	char		*name; //sert a rien, stock le prompt
-	char		*ret; // contient la valeur de la var d'env $?
-	int			fd; // savoir si c'est une erreur ou pas pour le \n
-	int			exit; // declarer a 1 a l'initialisation, while != 0 prog continue
-	int			i; // reussir a mettre a la norme
-	int			len; // reussir a mettre a la norme
+	t_list		*ev;
+	char		**cmd;
+	char		*out;
+	char		*name;
+	char		*ret;
+	int			fd;
+	int			exit;
+	int			i;
+	int			len;
 	int			savout;
 	int			savin;
 	int			red_out;
@@ -110,6 +110,8 @@ int				parsing_work(char **line, t_o *o);
 char			*quote(char **line, int *ver);
 int				verif_line(char *line);
 int				ev_strdup(char **line, int *i, t_o *o, int v);
+int				for_ev_strdup(char **line, int *i, int v, t_o *o);
+int				not_ev(char **l, int *i, int v, t_o *o);
 char			**ft_split_m(char **s, char c, t_o *o);
 int				size_ev(char *s, t_o *o, int v);
 int				parsing_char(t_o *o, char *line);
@@ -118,7 +120,7 @@ int				loop_quote(char **line, int *ver, char *c, int *i);
 int				verif_slash(char *line, int i);
 int				back_slash(char **line, int *ver, char *c, int *i);
 void			quote_bbis(char *line, int *i, char c, int *comp);
-int				is_quote(char *line ,int i, char m);
+int				is_quote(char *line, int i, char m);
 int				enter_quote(char *line, int i);
 
 /*
@@ -166,6 +168,7 @@ int				init_pipe(char **pip, t_pipe **tuy);
 
 int				redirections(t_o *o, char **line);
 int				where_redi(t_o *o, char **line, int beg, int end);
+int				for_redi_bis(char **line, int i, char m);
 int				is_empty(char c);
 void			close_all(t_o *o, int n);
 void			ignore(char *line, int *i);

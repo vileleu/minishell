@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 16:24:34 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:09:04 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		enter_slash(const char *line, int i, char c)
+int					enter_slash(const char *line, int i, char c)
 {
 	int		j;
 	int		co;

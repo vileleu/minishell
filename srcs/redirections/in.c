@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:30:52 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 17:17:28 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:52:57 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ int		redi_bis(t_o *o, char **line, int i, int beg)
 	if (enter_quote(*line, i))
 	{
 		m = (*line)[i++];
-		while (!is_quote(*line, i, m))
-			i++;
-		i++;
+		i = for_redi_bis(line, i, m);
 	}
 	else
 	{
@@ -121,7 +119,8 @@ int		redirections(t_o *o, char **line)
 				i++;
 			while (is_empty((*line)[i]))
 				i++;
-			if (!(ret = redi_bis(o, line, i, beg)) && (o->red_in == -1 || o->red_out == -1))
+			if (!(ret = redi_bis(o, line, i, beg)) && (o->red_in == -1 ||
+				o->red_out == -1))
 				return (reset(o));
 			else if (!ret)
 				return (0);

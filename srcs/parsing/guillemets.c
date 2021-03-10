@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   guillemets.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:11:21 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 14:46:31 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:02:06 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*get_newline(char **line, int *ver, char c, char join)
 	put_name("> ", "", 2);
 	if (!(newline = get_child(&end)))
 		return (NULL);
-	if (!end || in_fork - ((in_fork / 1000) * 1000) == 130 || in_fork - ((in_fork / 1000) * 1000) == 131)
+	if (!end || g_fork - ((g_fork / 1000) * 1000) == 130 ||
+		g_fork - ((g_fork / 1000) * 1000) == 131)
 	{
 		*ver = 2;
 		free(newline);
@@ -96,7 +97,7 @@ int		back_slash(char **line, int *ver, char *c, int *i)
 int		loop_quote(char **line, int *ver, char *c, int *i)
 {
 	int		comp;
-	
+
 	comp = 0;
 	if (enter_quote(*line, *i))
 	{

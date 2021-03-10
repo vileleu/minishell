@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 17:28:07 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:07:37 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int		ft_strcmp_ev(char *s1, char *s2)
 	i = 0;
 	while (s1[i] && s2[i] && s1[i] == s2[i] && s1[i] != '=')
 		i++;
-	if (s1[i] == '=' && (s2[i] == '=' || (!ft_isalnum(s2[i]) && s2[i] != '_' && i != 0)))
+	if (s1[i] == '=' && (s2[i] == '=' || (!ft_isalnum(s2[i]) &&
+		s2[i] != '_' && i != 0)))
 		return (0);
 	return (1);
 }

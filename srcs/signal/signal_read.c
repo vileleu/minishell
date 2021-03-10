@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 17:06:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 14:51:53 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:57:46 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ char	*get_child(int *end)
 
 	newline = NULL;
 	pipe(fd);
-	in_fork = 4000;
+	g_fork = 4000;
 	pid = fork();
 	if (pid == -1)
 		return (NULL);
 	else if (pid == 0)
 	{
-		in_fork = 5000;
+		g_fork = 5000;
 		get_child_c(newline, fd, *end);
 	}
 	else if (pid > 0)
@@ -101,13 +101,13 @@ void	return_child(t_o *o, int exit_pid)
 	}
 	else if (WIFSIGNALED(exit_pid))
 	{
-		if (in_fork - ((in_fork / 1000) * 1000) == 131)
+		if (g_fork - ((g_fork / 1000) * 1000) == 131)
 		{
 			o->ret = "?=131";
 			printf("%d\n", exit_pid);
 		}
-		else if (in_fork - ((in_fork / 1000) * 1000) == 130)
+		else if (g_fork - ((g_fork / 1000) * 1000) == 130)
 			o->ret = "?=130";
 	}
-	in_fork = 0;
+	g_fork = 0;
 }

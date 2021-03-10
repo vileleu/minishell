@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimain.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 14:41:47 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 15:22:58 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:53:55 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ char	*second_loop(t_o *o, char *line, int ret)
 	put_name(o->name, ": ", 2);
 	if ((ret = get_next_line(0, &line)) < 0)
 		return (error_leave("malloc failed", o, line));
-	if (in_fork)
+	if (g_fork)
 	{
-		if (in_fork == 130)
+		if (g_fork == 130)
 			o->ret = "?=130";
-		in_fork = 0;
+		g_fork = 0;
 	}
 	if (!ret && !ft_strcmp(line, ""))
 	{
@@ -118,7 +118,7 @@ int		main(int ac, char **av, char **ev)
 	if (ac != 1)
 		return (error_leave_int("too many arguments", NULL));
 	(void)av;
-	in_fork = 0;
+	g_fork = 0;
 	signal(SIGINT, sigint_signal);
 	signal(SIGQUIT, sigquit_signal);
 	loop("minishell", ev);

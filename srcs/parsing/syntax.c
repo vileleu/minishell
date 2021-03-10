@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 18:25:25 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 14:56:40 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:55:29 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		parsing_char(t_o *o, char *line)
 	int		i;
 	int		r;
 
-	in_fork = 0;
+	g_fork = 0;
 	i = 0;
 	r = 1;
 	while (line[i])

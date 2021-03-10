@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_m.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:39:48 by vileleu           #+#    #+#             */
-/*   Updated: 2021/03/09 17:17:36 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:07:40 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ int		loop_split_ev(char **s, char *str, int *size, t_o *o)
 				while ((o->len)-- > 0)
 					str[(o->i)++] = (*s)[(*size)++];
 			}
-			else if ((*s)[*size] == '\\' && m == '\"' && ((*s)[*size + 1] == '$' || (*s)[*size + 1] == '\"' || (*s)[*size + 1] == '\\'))
+			else if ((*s)[*size] == '\\' && m == '\"' &&
+				((*s)[*size + 1] == '$' || (*s)[*size + 1] == '\"' ||
+				(*s)[*size + 1] == '\\'))
 			{
 				(*size)++;
 				str[(o->i)++] = (*s)[(*size)++];
@@ -135,8 +137,10 @@ char	*loop_split(char **s, int *size, char c, t_o *o)
 			(*size)++;
 			str[(o->i)++] = (*s)[(*size)++];
 		}
-		if (((*s)[*size] && (*s)[*size] == '$' && !ft_isalnum((*s)[*size + 1])) || \
-		((*s)[*size] && (*s)[*size] != c && (*s)[*size] != '$' && (*s)[*size] != '\\' && (*s)[*size] != '\'' && (*s)[*size] != '\"'))
+		if (((*s)[*size] && (*s)[*size] == '$' &&
+			!ft_isalnum((*s)[*size + 1])) || ((*s)[*size] && (*s)[*size] != c &&
+			(*s)[*size] != '$' && (*s)[*size] != '\\' &&
+			(*s)[*size] != '\'' && (*s)[*size] != '\"'))
 			str[(o->i)++] = (*s)[(*size)++];
 	}
 	str[o->i] = '\0';

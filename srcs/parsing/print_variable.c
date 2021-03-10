@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 19:47:04 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/23 16:10:28 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 17:34:29 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,15 +128,5 @@ int		ev_strdup(char **line, int *i, t_o *o, int v)
 			return (0);
 		return (1);
 	}
-	else if (ft_isdigit((*line)[*i + 1]))
-	{
-		if (!(for_digit(o, line, i, v)))
-			return (0);
-	}
-	else
-	{
-		if (!(not_ev(line, i, v, o)))
-			return (0);
-	}
-	return (1);
+	return (for_ev_strdup(line, i, v, o));
 }

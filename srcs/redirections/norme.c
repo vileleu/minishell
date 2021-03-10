@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   norme.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vileleu <vileleu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thoberth <thoberth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 16:22:13 by vileleu           #+#    #+#             */
-/*   Updated: 2021/02/25 15:52:07 by vileleu          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:54:27 by thoberth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,12 @@ int		error_open(t_o *o, char ***new, char **name)
 	ft_putstr_fd("\n", 2);
 	o->ret = "?=1";
 	return (free_all(new, name, -1));
+}
+
+int		for_redi_bis(char **line, int i, char m)
+{
+	while (!is_quote(*line, i, m))
+		i++;
+	i++;
+	return (i);
 }
