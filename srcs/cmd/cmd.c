@@ -57,18 +57,29 @@ char	*unknown(t_o *o)
 
 char	*cmd_exit(t_o *o)
 {
-	t_list	*tmp;
+	int		nb;
+	int		i;
 
-	o->exit = 0;
-	o->fd = 0;
-	o->out = ft_strdup("");
-	while (o->ev)
-	{
-		tmp = o->ev;
-		o->ev = o->ev->next;
-		free(tmp->content);
-		free(tmp);
-	}
+	nb = 0;
 	ft_putstr_fd("exit\n", 2);
-	return ("?=255");
+	if (o->cmd[1] && o->cmd[2] && full_digit(o->cmd[1]))
+		return (error_arg(o));
+	else if (o->cmd[1] && !full_digit(o->cmd[1]))
+		return (error_exit(o));
+	else if (o->cmd[1] && full_digit(o->cmd[1]))
+	{
+		i = 0;
+		while (o->cmd[1][i])
+		{
+			if (i == 0 && o->cmd[1][i] == '-')
+				i++;
+			nb = nb * 10 + o->cmd[1][i] - '0';
+			i++;
+		}
+		if (full_digit(o->cmd[1]) < 0)
+			nb = -1 * nb + 256;
+	}
+	o->fd = 0;
+	del_ev_exit(o);
+	return (ret_exit(nb % 256));
 }

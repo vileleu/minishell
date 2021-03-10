@@ -72,6 +72,7 @@ char			*error_eof(char **line, char c, char join);
 char			*free_char(char **str);
 int				error_open(t_o *o, char ***new, char **name);
 char			*error_errnoo(t_o *o, char *tmp);
+char			*error_exit(t_o *o);
 
 /*
 ** fonctions builtins
@@ -86,6 +87,9 @@ char			*cmd_export(t_o *o);
 char			*cmd_unset(t_o *o);
 int				cmd_path(t_o *o);
 char			*unknown(t_o *o);
+char			*ret_exit(int nb);
+int				full_digit(char *s);
+void			del_ev_exit(t_o *o);
 
 /*
 ** traitement de(s) commande(s)
