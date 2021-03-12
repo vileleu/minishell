@@ -104,18 +104,20 @@ char	*cmd_rel(t_o *o)
 	char	*path;
 	int		ret;
 
+
 	o->fd = 0;
 	if (!(cmd = create_exe(o, &path, 0)))
 		return (NULL);
 	if (!(cpy = make_cpy(o, cmd, 0)))
 		return (free_char(&cmd, &path));
 	free(cmd);
-	if ((ret = open(o->cmd[0], O_RDWR)) == -1)
+	if ((ret = open(o->cmd[0], O_RDWR)) == -1 && errno != 13)
 	{
 		free_all_char(&cpy, &path, NULL);
 		return (error_errno_rel(o));
 	}
-	close(ret);
+	if (errno != 13)
+		close(ret);
 	if (!(find_exe(&path, cpy, o)))
 		return (free_all_char(&cpy, &path, NULL));
 	free_all_char(&cpy, &path, NULL);
