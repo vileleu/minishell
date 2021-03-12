@@ -33,7 +33,7 @@ int		where_path(char **path, char *s)
 	return (i);
 }
 
-int		execute(char **path, t_o *o)
+int		execute(char **path, t_o *o, char **cmd)
 {
 	char	**envp;
 	pid_t	pid;
@@ -45,7 +45,7 @@ int		execute(char **path, t_o *o)
 	o->out = ft_strdup("");
 	o->fd = 0;
 	g_fork = 1000;
-	if (!ft_strcmp(o->cmd[0], "man") || !ft_strcmp(o->cmd[0], "minishell"))
+	if (!ft_strcmp(cmd[0], "man") || !ft_strcmp(cmd[0], "minishell"))
 		g_fork = 3000;
 	pid = fork();
 	if (pid == -1)
@@ -55,14 +55,14 @@ int		execute(char **path, t_o *o)
 	else if (pid == 0)
 	{
 		g_fork = 2000;
-		if (execve(*path, o->cmd, envp) == -1)
-			return (free_all(&envp, NULL, 0));
+		if (execve(*path, cmd, envp) == -1 && free_all(&envp, NULL, -1))
+			error_exec(o);
 	}
 	return_child(o, exit_pid);
-	return (free_all(&envp, NULL, 1));
+	return (free_all(&envp, NULL, 2));
 }
 
-int		find_exe(char **path, char *cmd, t_o *o)
+int		find_exe(char **path, char **cmd, t_o *o)
 {
 	DIR				*dir;
 	struct dirent	*sd;
@@ -72,18 +72,17 @@ int		find_exe(char **path, char *cmd, t_o *o)
 		return (1);
 	while ((sd = readdir(dir)) != NULL)
 	{
-		if (ft_strcmp(sd->d_name, cmd) == 0)
+		if (ft_strcmp(sd->d_name, cmd[0]) == 0)
 		{
-			if (!(*path = ft_strjoin(*path, "/")))
+			if ((*path)[ft_strlen(*path) - 1] != '/' && \
+			!(*path = ft_strjoin(*path, "/")))
 				return (closedir(dir));
-			if (!(*path = ft_strjoin(*path, cmd)))
+			if (!(*path = ft_strjoin(*path, cmd[0])))
 				return (closedir(dir));
 			if ((fd = open(*path, O_DIRECTORY)) > 0)
-				return (closedir(dir) + 1);
-			if (!(execute(path, o)))
-				return (closedir(dir));
-			closedir(dir);
-			return (2);
+				return (close_dir(dir, fd, -2));
+			close_dir(dir, fd, 1);
+			return (execute(path, o, cmd));
 		}
 	}
 	closedir(dir);
@@ -101,7 +100,7 @@ int		find_path(char *s, t_o *o)
 	end = 1;
 	while ((ret = where_path(&path, s + i)) > 0)
 	{
-		if (!(end = find_exe(&path, o->cmd[0], o)))
+		if (!(end = find_exe(&path, o->cmd, o)))
 			return (big_free(&path, NULL));
 		free(path);
 		if (s[i + ret] == '\0' || end == 2)
@@ -114,7 +113,6 @@ int		find_path(char *s, t_o *o)
 int		cmd_path(t_o *o)
 {
 	t_list	*tmp;
-	char	*rac;
 	int		ret;
 
 	tmp = o->ev;
@@ -128,14 +126,6 @@ int		cmd_path(t_o *o)
 			break ;
 		}
 		tmp = tmp->next;
-	}
-	if (ret == 1)
-	{
-		if (!(rac = getcwd(NULL, 0)))
-			return (0);
-		if (!(ret = find_exe(&rac, o->cmd[0], o)))
-			return (big_free(&rac, NULL));
-		free(rac);
 	}
 	return (ret);
 }

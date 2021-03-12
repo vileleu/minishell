@@ -50,10 +50,12 @@ char	*error_eof(char **line, char c, char join)
 	return (*line);
 }
 
-char	*free_char(char **str)
+char	*free_char(char **str, char **s)
 {
-	if (*str)
+	if (str)
 		free(*str);
+	if (s)
+		free(*s);
 	return (NULL);
 }
 
@@ -73,4 +75,17 @@ char	*error_errnoo(t_o *o, char *tmp)
 	o->fd = 2;
 	o->out = ft_strdup("");
 	return ("?=1");
+}
+
+char	*error_path(t_o *o, int n)
+{
+	o->fd = 2;
+	ft_putstr_fd(o->name, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(o->cmd[0], 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	if (errno == 2)
+		n = 127;
+	return (ret_exit(n));
 }

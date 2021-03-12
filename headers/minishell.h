@@ -69,10 +69,15 @@ char			*error_mine(t_o *o, char *msg);
 int				big_free(char **s1, char **s2);
 int				free_twice(char ***cmd, t_pipe *tuy, int ret);
 char			*error_eof(char **line, char c, char join);
-char			*free_char(char **str);
+char			*free_char(char **str, char **s);
 int				error_open(t_o *o, char ***new, char **name);
 char			*error_errnoo(t_o *o, char *tmp);
 char			*error_exit(t_o *o);
+char			*error_path(t_o *o, int n);
+char			*free_all_char(char ***cmd, char **out, char *ret);
+char			*error_rel(t_o *o, char *m, int n);
+void			error_exec(t_o *o);
+char			*error_errno_rel(t_o *o);
 
 /*
 ** fonctions builtins
@@ -150,6 +155,13 @@ int				for_digit(t_o *o, char **line, int *i, int v);
 
 int				where_path(char **path, char *s);
 char			**new_envp(t_o *o);
+char			*shlvl(char *sh);
+char			*which_inc(char *tmp);
+int				there_is_slash(t_o *o);
+int				execute(char **path, t_o *o, char **cmd);
+int				find_exe(char **path, char **cmd, t_o *o);
+char			*cmd_rel(t_o *o);
+int				close_dir(DIR *dir, int fd, int n);
 
 /*
 ** fonctions signaux

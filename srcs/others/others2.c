@@ -74,7 +74,8 @@ char	**new_envp(t_o *o)
 	tmp = o->ev;
 	while (tmp != NULL)
 	{
-		doub = ft_strdup(tmp->content);
+		if (!(doub = which_inc(tmp->content)))
+			return (free_tab(envp, i - 1));
 		if (!(envp[i] = malloc(sizeof(char) * (ft_strlen(doub) + 1))))
 			return (free_tab(envp, i - 1));
 		j = -1;

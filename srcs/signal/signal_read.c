@@ -80,24 +80,12 @@ char	*get_child(int *end)
 	return (newline);
 }
 
-char	*little_itoa(int n)
-{
-	if (n == 1)
-		return ("?=1");
-	else if (n == 2)
-		return ("?=2");
-	else if (n == 3)
-		return ("?=3");
-	else
-		return ("?=0");
-}
-
 void	return_child(t_o *o, int exit_pid)
 {
 	if (WIFEXITED(exit_pid))
 	{
 		exit_pid = WEXITSTATUS(exit_pid);
-		o->ret = little_itoa(exit_pid);
+		o->ret = ret_exit(exit_pid);
 	}
 	else if (WIFSIGNALED(exit_pid))
 	{

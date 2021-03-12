@@ -32,6 +32,8 @@ char	*commandes(t_o *o)
 		return (cmd_unset(o));
 	else if (ft_strncmp(o->cmd[0], "exit", 5) == 0)
 		return (cmd_exit(o));
+	else if (there_is_slash(o))
+		return (cmd_rel(o));
 	else if (cmd_path(o) == 2)
 		return (o->ret);
 	else
