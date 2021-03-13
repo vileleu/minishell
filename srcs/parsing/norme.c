@@ -76,7 +76,8 @@ int		loop_split_ev_norme(t_o *o, char **s, char *str, int *size)
 				str[(o->i)++] = (*s)[(*size)++];
 		}
 		else if ((*s)[*size] == '\\' && m == '\"' && ((*s)[*size + 1] \
-		== '$' || (*s)[*size + 1] == '\"' || (*s)[*size + 1] == '\\'))
+		== '$' || (*s)[*size + 1] == '\"' || (*s)[*size + 1] == '\\' || \
+		(*s)[*size + 1] == '\n'))
 		{
 			(*size)++;
 			str[(o->i)++] = (*s)[(*size)++];

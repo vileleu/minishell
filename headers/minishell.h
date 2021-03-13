@@ -52,6 +52,8 @@ typedef struct	s_o
 	int			savin;
 	int			red_out;
 	int			red_in;
+	int			pipe[2];
+	int			pip_on;
 }				t_o;
 
 /*
@@ -76,7 +78,7 @@ char			*error_exit(t_o *o);
 char			*error_path(t_o *o, int n);
 char			*free_all_char(char ***cmd, char **out, char *ret);
 char			*error_rel(t_o *o, char *m, int n);
-void			error_exec(t_o *o);
+void			error_exec(t_o *o, char *cmd);
 char			*error_errno_rel(t_o *o);
 
 /*

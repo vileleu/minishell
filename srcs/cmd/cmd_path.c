@@ -43,7 +43,6 @@ int		execute(char **path, t_o *o, char **cmd)
 	if (!(envp = new_envp(o)))
 		return (0);
 	o->out = ft_strdup("");
-	o->fd = 0;
 	g_fork = 1000;
 	if (!ft_strcmp(cmd[0], "man") || !ft_strcmp(cmd[0], "minishell"))
 		g_fork = 3000;
@@ -56,7 +55,7 @@ int		execute(char **path, t_o *o, char **cmd)
 	{
 		g_fork = 2000;
 		if (execve(*path, cmd, envp) == -1 && free_all(&envp, NULL, -1))
-			error_exec(o);
+			error_exec(o, *path);
 	}
 	return_child(o, exit_pid);
 	return (free_all(&envp, NULL, 2));
@@ -74,6 +73,7 @@ int		find_exe(char **path, char **cmd, t_o *o)
 	{
 		if (ft_strcmp(sd->d_name, cmd[0]) == 0)
 		{
+			o->fd = 0;
 			if ((*path)[ft_strlen(*path) - 1] != '/' && \
 			!(*path = ft_strjoin(*path, "/")))
 				return (closedir(dir));

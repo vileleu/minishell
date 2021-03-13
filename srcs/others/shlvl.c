@@ -12,6 +12,20 @@
 
 #include "../../headers/minishell.h"
 
+int		there_is_slash(t_o *o)
+{
+	int		i;
+
+	i = 0;
+	while (o->cmd[0][i])
+	{
+		if (o->cmd[0][i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		close_dir(DIR *dir, int fd, int n)
 {
 	closedir(dir);

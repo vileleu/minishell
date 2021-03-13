@@ -47,6 +47,7 @@ void	init_o_bis(t_o *o)
 	o->savin = 0;
 	o->red_out = 0;
 	o->red_in = 0;
+	o->pip_on = 0;
 }
 
 int		init_o(t_o *o, char *name, char **ev)

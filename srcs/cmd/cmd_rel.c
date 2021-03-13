@@ -12,20 +12,6 @@
 
 #include "../../headers/minishell.h"
 
-int		there_is_slash(t_o *o)
-{
-	int		i;
-
-	i = 0;
-	while (o->cmd[0][i])
-	{
-		if (o->cmd[0][i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char	*create_path(char *cmd, int i)
 {
 	char	*s;
@@ -97,12 +83,31 @@ char	**make_cpy(t_o *o, char *cmd, int i)
 	return (cpy);
 }
 
+char	*cmd_rel_bis(t_o *o, char *path, char **cpy)
+{
+	char	buf[4];
+	int		rd;
+
+	o->pip_on = 1;
+	pipe(o->pipe);
+	if (!(find_exe(&path, cpy, o)))
+		return (free_all_char(&cpy, &path, NULL));
+	close(o->pipe[1]);
+	if ((rd = read(o->pipe[0], buf, 3)) == -1)
+		return (free_all_char(&cpy, &path, NULL));
+	buf[rd] = '\0';
+	close(o->pipe[0]);
+	o->pip_on = 0;
+	free_all_char(&cpy, &path, NULL);
+	return (ret_exit(atoi(buf)));
+}
+
 char	*cmd_rel(t_o *o)
 {
-	char	**cpy;
-	char	*cmd;
-	char	*path;
-	int		ret;
+	char		**cpy;
+	char		*cmd;
+	char		*path;
+	struct stat	buf;
 
 	o->fd = 0;
 	if (!(cmd = create_exe(o, &path, 0)))
@@ -110,14 +115,15 @@ char	*cmd_rel(t_o *o)
 	if (!(cpy = make_cpy(o, cmd, 0)))
 		return (free_char(&cmd, &path));
 	free(cmd);
-	if ((ret = open(o->cmd[0], O_RDONLY)) == -1)
+	if ((lstat(o->cmd[0], &buf)) == -1)
 	{
 		free_all_char(&cpy, &path, NULL);
 		return (error_errno_rel(o));
 	}
-	close(ret);
-	if (!(find_exe(&path, cpy, o)))
-		return (free_all_char(&cpy, &path, NULL));
-	free_all_char(&cpy, &path, NULL);
-	return ("?=0");
+	if (S_ISDIR(buf.st_mode))
+	{
+		free_all_char(&cpy, &path, NULL);
+		return (error_rel(o, "Is a directory", 126));
+	}
+	return (cmd_rel_bis(o, path, cpy));
 }

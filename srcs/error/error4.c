@@ -57,11 +57,14 @@ char	*error_errno_rel(t_o *o)
 	return (ret_exit(n));
 }
 
-void	error_exec(t_o *o)
+void	error_exec(t_o *o, char *cmd)
 {
+	close(o->pipe[0]);
+	write(o->pipe[1], "126", 3);
+	close(o->pipe[1]);
 	ft_putstr_fd(o->name, 2);
 	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(o->cmd[0], 2);
+	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
